@@ -1,0 +1,60 @@
+/* ===============================================
+공통
+=============================================== */
+input {
+    font-size:12px;
+}
+
+a {
+    text-decoration: none;
+}
+
+#logo{
+    font-size:60px;
+    color:#ff7530;
+    letter-spacing:-3px;
+    text-align: center;
+    margin:50px 0px;
+}
+
+#logo-mini{
+    font-size:40px;
+    color:#ff7530;
+    letter-spacing:-2px;
+    text-align: center;
+    margin:0;
+}
+
+
+/* ===============================================
+로그인페이지
+=============================================== */
+input.login-input{
+    font-size: 15px;
+    width:100%;
+    border:none;
+    border-bottom: 2px solid gray;
+    padding: 5px 0;
+    margin:5px 0;
+}
+
+input.login-button{
+    width:100%;
+    font-size:20px;
+    margin:15px 0;
+    padding: 10px 0;
+    border:none;
+    background-color:#ff7530;
+    color:white;
+    font-weight:bold;
+}
+
+a#join{
+    color:#555555;
+    font-size:12px;
+}
+
+#login-box{
+    margin:0 auto;
+    width:300px;
+}
