@@ -12,8 +12,14 @@
 </head>
 <body>
     <? insert_parts("big_logo_header") ?>
-    <container>
-        
-    </container>
+    <div id="join-container">
+        <?php
+            if($_GET['page'] == "agreement"){
+                include 'agreement.php';
+            } else{
+                invalid_access();
+            }
+         ?>
+    </div>
 </body>
 </html>

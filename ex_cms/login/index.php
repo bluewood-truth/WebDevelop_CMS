@@ -18,9 +18,9 @@
                     <input placeholder="아이디" name="id" class="login-input" type="text" required="reqired"><br>
                     <input placeholder="비밀번호" name="password" class="login-input" type="password" required="reqired">
                 </div>
-                <input type="submit" class="login-button" value="로그인"></input>
+                <input type="submit" class="long-button" value="로그인">
             </form>
-            <a id="join" href="http://uraman.m-hosting.kr/ex_cms/join/">회원가입</a>
+            <a id="join" href="http://uraman.m-hosting.kr/ex_cms/join/join.php?page=agreement">회원가입</a>
             <br>
         </div>
     </container>

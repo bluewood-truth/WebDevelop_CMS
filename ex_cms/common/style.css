@@ -25,6 +25,48 @@ a {
     margin:0;
 }
 
+div.article-box{
+    overflow: auto; width:100%; height:96px;
+    border: 1px solid gray;
+    font-size:12px;
+}
+
+p.article-text{
+    margin: 5px 15px;
+}
+
+.long-button{
+    width:100%;
+    font-size:20px;
+    margin:15px 0;
+    padding: 10px 0;
+    border:none;
+    background-color:#ff7530;
+    color:white;
+    font-weight:bold;
+}
+
+.short-button{
+    width:45%;
+    font-size:20px;
+    margin:15px auto;
+    padding: 10px 0;
+    border:none;
+    background-color:#ff7530;
+    color:white;
+    font-weight:bold;
+}
+
+.short-button-gray{
+    width:45%;
+    font-size:20px;
+    margin:15px auto;
+    padding: 10px 0;
+    border:none;
+    background-color:#555555;
+    color:white;
+    font-weight:bold;
+}
 
 /* ===============================================
 로그인페이지
@@ -38,17 +80,6 @@ input.login-input{
     margin:5px 0;
 }
 
-input.login-button{
-    width:100%;
-    font-size:20px;
-    margin:15px 0;
-    padding: 10px 0;
-    border:none;
-    background-color:#ff7530;
-    color:white;
-    font-weight:bold;
-}
-
 a#join{
     color:#555555;
     font-size:12px;
@@ -57,4 +88,46 @@ a#join{
 #login-box{
     margin:0 auto;
     width:300px;
+}
+
+
+/* ===============================================
+회원가입 페이지
+=============================================== */
+ul#join-elements-list{
+    padding:0px;
+    list-style:none;
+    text-align:left;
+}
+li.join-element{
+    padding-bottom:20px;
+}
+
+#join-container{
+    margin:0 auto;
+    width:480px;
+    text-align:center;
+}
+
+.agreement-label-box{
+    margin:10px 0;
+}
+
+.agreement-label{
+    font-size:15px;
+    font-weight:bold;
+}
+
+span.required{
+    padding-left:5px;
+    font-size:12px;
+    color:red;
+    font-weight:normal;
+}
+
+span.optional{
+    padding-left:5px;
+    font-size:12px;
+    color:gray;
+    font-weight:normal;
 }
