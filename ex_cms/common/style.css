@@ -31,7 +31,7 @@ p{
 
 div.article-box{
     overflow: auto; width:100%; height:96px;
-    border: 1px solid gray;
+    border: 1px solid #bbbbbb;
     font-size:12px;
 }
 
@@ -39,37 +39,35 @@ p.article-text{
     margin: 5px 15px;
 }
 
-.long-button{
-    width:100%;
+.custom-button{
     font-size:20px;
     margin:15px 0;
-    padding: 10px 0;
+    padding: 20px 0;
     border:none;
-    background-color:#ff7530;
     color:white;
     font-weight:bold;
+    border-radius:3px;
 }
 
-.short-button{
-    width:45%;
-    font-size:20px;
-    margin:15px auto;
-    padding: 10px 0;
-    border:none;
+.bg-orange{
     background-color:#ff7530;
-    color:white;
-    font-weight:bold;
 }
 
-.short-button-gray{
-    width:45%;
-    font-size:20px;
-    margin:15px auto;
-    padding: 10px 0;
-    border:none;
+.bg-gray{
     background-color:#555555;
-    color:white;
-    font-weight:bold;
+}
+
+.long{
+    width:100%;
+}
+
+.short{
+    width:45%;
+}
+
+.basic-text{
+    font-size:15px;
+    color:#555555;
 }
 
 /* ===============================================
@@ -80,8 +78,8 @@ input.login-input{
     width:100%;
     border:none;
     border-bottom: 2px solid gray;
-    padding: 5px 0;
-    margin:5px 0;
+    padding: 10px 0;
+    margin-bottom:20px;
 }
 
 a#join{
@@ -134,9 +132,9 @@ div.join-input-box{
     width:100%;
     height:35px;
     padding: 5px 0;
-    border:1px solid gray;
+    border:1px solid #bbbbbb;
 
-    align-items: center;
+    text-align:center;
 }
 
 .join-input{

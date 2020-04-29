@@ -23,8 +23,8 @@
             </div></li>';
     ?>
 </ul>
-<input type="button" class="short-button-gray" onclick="location.href=document.referrer" value="취소">
-<input type="button" class="short-button" id="btn_ok" value="확인">
+<input type="button" class="custom-button short bg-gray" onclick="location.href=document.referrer" value="취소">
+<input type="button" class="custom-button short bg-orange" id="btn_ok" value="확인">
 </form>
 
 <script>

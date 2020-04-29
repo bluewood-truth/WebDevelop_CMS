@@ -8,7 +8,7 @@
     function sql_connect(){
         global $conn;
         session_start();
-        $conn = mysqli_connect("localhost",'id','password');
+        $conn = mysqli_connect("localhost",'uraman','!Q2w3e4r');
         mysqli_select_db($conn, 'uraman');
         mysqli_query($conn,"SET names UTF8");
     }
@@ -22,11 +22,25 @@
         return mysqli_fetch_assoc($table);
     }
 
+    function sql_duplicate_check($value, $table, $col, $only_not_deleted = "false"){
+        $sql = "SELECT ".$col." FROM ".$table." WHERE ".$col." = '".$value."'";
+        if($only_not_deleted == "true"){
+            $sql = $sql." AND deleted = 0";
+        }
+        //echo $sql;
+
+        $result = sql_query($sql);
+        $result = sql_get_row($result);
+
+        return empty(!$result);
+    }
 
 
 
 
-    function filter($conn, $text, $is_text=false){
+    function filter($text, $is_text=false){
+        global $conn;
+
         $text = htmlspecialchars($text);
         if($is_text ){
             $text = str_replace("\n","<br>",$text);

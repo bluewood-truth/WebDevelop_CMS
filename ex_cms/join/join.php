@@ -7,7 +7,7 @@
 <html>
 <head>
  	<meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="http://uraman.m-hosting.kr/ex_cms/common/style.css">
+    <link rel="stylesheet" type="text/css" href="/ex_cms/common/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="/ex_cms/common/common.js"></script>
 </head>
@@ -22,8 +22,10 @@
                 include '1_agreement.php';
             } else if ($_GET['page'] == "form"){
                 include '2_form.php';
+            } else if ($_GET['page'] == "joined"){
+                include '3_joined.php';
             } else{
-                //invalid_access();
+                invalid_access();
             }
          ?>
     </div>
