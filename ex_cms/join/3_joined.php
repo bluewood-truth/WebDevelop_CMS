@@ -4,6 +4,7 @@
     }
     $table = sql_query("SELECT user_id,nickname FROM `CMS_userinfo` WHERE id=".$_POST['data']);
     $row = sql_get_row($table);
+    echo $_POST["data"];
  ?>
 
 <h2>회원가입이 완료되었습니다!</h2>

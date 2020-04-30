@@ -35,6 +35,17 @@
         return empty(!$result);
     }
 
+    function sql_login_check($id, $pw){
+        $pw = sha1($pw);
+
+        $sql = "SELECT user_id,password FROM CMS_userinfo WHERE user_id = '".$id."' AND password = '".$pw."'";
+        $result = sql_query($sql);
+        $result = sql_get_row($result);
+
+        // 해당 id, pw에 해당하는 계정이 존재하면 true, 둘중 하나라도 틀리면 false
+        return empty(!$result);
+    }
+
 
 
 
@@ -59,7 +70,7 @@
     }
 
 
-    function insert_parts($parts_name, $is_php=false){
-        include $_SERVER["DOCUMENT_ROOT"]."/ex_cms/common/parts/".$parts_name.($is_php?".php":".html");
+    function insert_parts($parts_name){
+        include $_SERVER["DOCUMENT_ROOT"]."/ex_cms/common/parts/".$parts_name;
     }
 ?>

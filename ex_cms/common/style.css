@@ -13,21 +13,33 @@ p{
     margin:0;
 }
 
+body{
+    background-color: #eeeeee;
+    margin:0;
+}
+
 #logo{
     font-size:60px;
     color:#ff7530;
     letter-spacing:-3px;
     text-align: center;
-    margin:50px 0px;
+    margin:40px 0px;
 }
 
-#logo-mini{
-    font-size:40px;
-    color:#ff7530;
-    letter-spacing:-2px;
-    text-align: center;
-    margin:0;
+
+.text-stroke {
+    text-shadow:
+    -1px -1px 0 #ffffff,
+    1px -1px 0 #ffffff,
+    -1px 1px 0 #ffffff,
+    1px 1px 0 #ffffff;
 }
+
+.white-shadow-box{
+    background-color: white;
+    box-shadow: 0px 0px 5px 5px #dddddd;
+}
+
 
 div.article-box{
     overflow: auto; width:100%; height:96px;
@@ -41,7 +53,7 @@ p.article-text{
 
 .custom-button{
     font-size:20px;
-    margin:15px 0;
+    margin:5px 0;
     padding: 20px 0;
     border:none;
     color:white;
@@ -70,6 +82,12 @@ p.article-text{
     color:#555555;
 }
 
+.post{
+    width:0;
+    height:0;
+    visibility:hidden;
+}
+
 /* ===============================================
 로그인페이지
 =============================================== */
@@ -90,6 +108,7 @@ a#join{
 #login-box{
     margin:0 auto;
     width:300px;
+    padding:80px 100px;
 }
 
 
@@ -101,8 +120,6 @@ ul#join-elements-list{
     list-style:none;
     text-align:left;
 }
-li.join-element{
-}
 
 .padding-bottom{
     padding-bottom:25px;
@@ -110,7 +127,8 @@ li.join-element{
 
 #join-container{
     margin:0 auto;
-    width:450px;
+    width:360px;
+    padding:50px 70px;
     text-align:center;
 }
 
@@ -171,4 +189,99 @@ span.optional{
 p.join-message{
     font-size:13px;
     margin: 5px;
+}
+
+
+/* ===============================================
+헤더
+=============================================== */
+header.header{
+    width:100%;
+    height:50px;
+    margin:0;
+    background-color:#555555;
+}
+
+#logo-mini{
+    font-size:30px;
+    color:#ff7530;
+    letter-spacing:-2px;
+    text-align: center;
+    font-weight: bold;
+    margin:0;
+    float:left;
+}
+
+.screen-width{
+    width:960px;
+    margin:0 auto;
+    height:100%;
+}
+
+ul.nav{
+    list-style:none;
+    height:50px;
+    width:auto;
+    margin:0;
+    padding:0;
+}
+
+ul.nav > li{
+    display:inline-block;
+    width:100px;
+    height:50px;
+    line-height: 50px;
+    text-align:center;
+    color:#eeeeee;
+    font-weight:bold;
+    position:relative;
+}
+
+ul.nav > li:hover{
+    background-color: #888888;
+}
+
+ul.nav-sub{
+    list-style:none;
+    display:none;
+    position:absolute;
+    padding:0;
+    box-shadow: 0px 0px 2px 2px #777777;
+}
+
+ul.nav > li:hover ul.nav-sub{
+    display:block;
+}
+
+ul.nav-sub > li{
+    border-top: 1px solid gray;
+    width:100px;
+    height:50px;
+    line-height: 50px;
+    background-color:#555555;
+    text-align:center;
+    color:#eeeeee;
+    font-weight:bold;
+    /* display:flex;
+    justify-content: center; */
+    position:relative;
+}
+
+ul.nav-sub > li:hover{
+    background-color: #888888;
+}
+
+.nav-btn{
+    float:right;
+    width:100px;
+    height:50px;
+    line-height: 50px;
+    background-color:#555555;
+    text-align:center;
+    color:#eeeeee;
+    font-weight:bold;
+}
+
+.nav-btn:hover{
+    background-color: #888888;
 }

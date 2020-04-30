@@ -12,8 +12,8 @@
     <script src="/ex_cms/common/common.js"></script>
 </head>
 <body>
-    <? insert_parts("big_logo_header") ?>
-    <div id="join-container">
+    <? insert_parts("big_logo_header.html") ?>
+    <div id="join-container" class="white-shadow-box">
         <?php
             if(isset($_GET['page']) == false){
                 invalid_access();

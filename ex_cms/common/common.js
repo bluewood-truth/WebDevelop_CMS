@@ -1,6 +1,6 @@
 // form id, post 이름, 값
 function set_post(parentId, name, value){
-    var html = "<input name='"+name+"' value='"+value+"' style='visibility:hidden'>";
+    var html = "<input name='"+name+"' value='"+value+"' class='post'>";
     $("#"+parentId).append(html);
 }
 
@@ -15,7 +15,26 @@ function duplicate_check(value,table,col,only_not_deleted = false){
         dataType: "text",
         success:function(data){
             result = data=="true" ? true : false;
+        }}
+    );
+    // 중복이면 true, 중복아니면 false
+    return result;
+}
+
+// 중복체크할 값, 중복체크할 테이블과 열
+function login_check(id, pw){
+    var result;
+    $.ajax({
+        url:"/ex_cms/common/process/_login_check.php",
+        method:"POST",
+        async:false,
+        data: {"id":id, "pw":pw},
+        dataType: "text",
+        success:function(data){
+            result = data=="true" ? true : false;
+
             console.log(data);
+            console.log(result);
         }}
     );
     // 중복이면 true, 중복아니면 false

@@ -42,9 +42,12 @@
         </div>
         <p class="join-message"></p>
     </li>
-
 </ul>
-<input type="button" class="custom-button long bg-orange" id="btn_ok" value="가입하기">
+
+<br>
+
+<input type="button" class="custom-button short bg-gray" onclick="location.href='http://uraman.m-hosting.kr/ex_cms/login'" value="취소">
+<input type="button" class="custom-button short bg-orange" id="btn_ok" value="가입하기">
 </form>
 
 <script>
