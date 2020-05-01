@@ -40,3 +40,9 @@ function login_check(id, pw){
     // 중복이면 true, 중복아니면 false
     return result;
 }
+
+
+// 로그아웃
+function logout(){
+    location.href="common/process/_logout_process.php";
+}

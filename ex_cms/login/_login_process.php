@@ -1,14 +1,15 @@
 <?php
-    include $_SERVER["DOCUMENT_ROOT"]."/ex_cms/common/common.php";
+    include_once $_SERVER["DOCUMENT_ROOT"]."/ex_cms/common/common.php";
+    sql_connect();
 
     $id = $_POST['id'];
-    $pw = $_POST['pw'];
+    $pw = $_POST['password'];
 
     if(sql_login_check($id,$pw)){
-        $_SESSION['login'] = $_POST['id'];
-        header('Location:http://uraman.m-hosting.kr/ex_cms/login');
+        $_SESSION["login"] = $id;
+        header('Location:http://uraman.m-hosting.kr/ex_cms/');
     }
     else{
-        header('Location:http://uraman.m-hosting.kr/ex_cms/');
+        header('Location:http://uraman.m-hosting.kr/ex_cms/login');
     }
  ?>

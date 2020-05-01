@@ -1,5 +1,5 @@
 <?php
-    include $_SERVER["DOCUMENT_ROOT"]."/ex_cms/common/common.php";
+    include_once $_SERVER["DOCUMENT_ROOT"]."/ex_cms/common/common.php";
     sql_connect();
  ?>
 

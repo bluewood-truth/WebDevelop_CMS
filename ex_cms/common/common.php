@@ -1,4 +1,8 @@
 <?php
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
     ini_set('display_errors', 1);
     $conn = "";
 
@@ -7,7 +11,6 @@
     // =============================================================
     function sql_connect(){
         global $conn;
-        session_start();
         $conn = mysqli_connect("localhost",'uraman','!Q2w3e4r');
         mysqli_select_db($conn, 'uraman');
         mysqli_query($conn,"SET names UTF8");

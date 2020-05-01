@@ -202,14 +202,20 @@ header.header{
     background-color:#555555;
 }
 
-#logo-mini{
+span#logo-mini{
     font-size:30px;
-    color:#ff7530;
     letter-spacing:-2px;
     text-align: center;
     font-weight: bold;
-    margin:0;
+    padding-right:30px;
     float:left;
+    height:100%;
+}
+
+span#logo-mini a{
+    color:#ff7530;
+    margin: 0px; display: block; width: 100%; height: 100%;
+    line-height: 50px;
 }
 
 .screen-width{
@@ -220,7 +226,7 @@ header.header{
 
 ul.nav{
     list-style:none;
-    height:50px;
+    height:0px;
     width:auto;
     margin:0;
     padding:0;
@@ -228,11 +234,10 @@ ul.nav{
 
 ul.nav > li{
     display:inline-block;
-    width:100px;
+    width:90px;
     height:50px;
     line-height: 50px;
     text-align:center;
-    color:#eeeeee;
     font-weight:bold;
     position:relative;
 }
@@ -255,15 +260,10 @@ ul.nav > li:hover ul.nav-sub{
 
 ul.nav-sub > li{
     border-top: 1px solid gray;
-    width:100px;
+    width:90px;
     height:50px;
     line-height: 50px;
     background-color:#555555;
-    text-align:center;
-    color:#eeeeee;
-    font-weight:bold;
-    /* display:flex;
-    justify-content: center; */
     position:relative;
 }
 
@@ -273,15 +273,37 @@ ul.nav-sub > li:hover{
 
 .nav-btn{
     float:right;
-    width:100px;
+    width:90px;
     height:50px;
     line-height: 50px;
     background-color:#555555;
     text-align:center;
     color:#eeeeee;
     font-weight:bold;
+    font-size:13px;
+    border:0;
+    padding:0;
 }
 
 .nav-btn:hover{
     background-color: #888888;
+}
+
+.nav-msg{
+    float:right;
+    height:50px;
+    line-height: 50px;
+    text-align:right;
+    color:#eeeeee;
+    font-size:13px;
+    border:0;
+    padding:0;
+}
+
+li a{
+    margin: 0px; display: block; width: 100%; height: 100%;
+    color:#eeeeee;
+    text-align:center;
+    font-weight:bold;
+    font-size:14px;
 }
