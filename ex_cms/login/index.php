@@ -31,7 +31,21 @@
 </body>
 
 <script>
-    $("#login_btn")[0].addEventListener("click",function(){
+    $("#login_btn")[0].addEventListener("click",login)
+
+    $(".login-input")[0].addEventListener("keyup",function(){
+        if(window.event.keyCode == 13){
+            login();
+        }
+    });
+    $(".login-input")[1].addEventListener("keyup",function(){
+        if(window.event.keyCode == 13){
+            login();
+        }
+    });
+
+
+    function login(){
         var id = $("#login-form")[0].id.value;
         var pw = $("#login-form")[0].password.value;
 
@@ -43,6 +57,6 @@
         else{
             alert("잘못된 아이디 또는 비밀번호입니다.")
         }
-    })
+    }
 </script>
 </html>

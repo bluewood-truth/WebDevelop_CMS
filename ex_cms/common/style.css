@@ -191,6 +191,38 @@ p.join-message{
     margin: 5px;
 }
 
+/* ===============================================
+게시판
+=============================================== */
+table.board_list{
+    margin-top:20px;
+    width:100%;
+    border-collapse:collapse;
+}
+
+table.board_list tr{ font-size: 13px; border-bottom:1px solid gray; text-align: center;}
+
+table.board_list thead{
+    background-color:#555555;
+    color:white;
+}
+
+table.board_list th {height:36px;}
+table.board_list td {height:28px;}
+
+table.board_list tbody{
+    background-color:none;
+
+}
+
+.board_num{ width:70px;}
+.board_cat{width:100px;}
+.board_title{}
+td.board_title{text-align: left; padding:0 10px;}
+.board_author{width:100px;}
+.board_date{width:80px;}
+.board_views{width:80px;}
+.board_recommends{width:80px;}
 
 /* ===============================================
 헤더
