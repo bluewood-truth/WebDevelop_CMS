@@ -200,7 +200,8 @@ table.board_list{
     border-collapse:collapse;
 }
 
-table.board_list tr{ font-size: 13px; border-bottom:1px solid gray; text-align: center;}
+table.board_list tr{ font-size: 13px; border-bottom:1px solid #bbb; text-align: center;}
+table.board_list tbody tr:hover{ background-color:#ddd;}
 
 table.board_list thead{
     background-color:#555555;
@@ -215,14 +216,14 @@ table.board_list tbody{
 
 }
 
-.board_num{ width:70px;}
+.board_num{ width:60px;}
 .board_cat{width:100px;}
 .board_title{}
 td.board_title{text-align: left; padding:0 10px;}
-.board_author{width:100px;}
+.board_author{width:110px;}
 .board_date{width:80px;}
-.board_views{width:80px;}
-.board_recommends{width:80px;}
+.board_views{width:60px;}
+.board_recommends{width:60px;}
 
 /* ===============================================
 헤더
@@ -264,9 +265,9 @@ ul.nav{
     padding:0;
 }
 
-ul.nav > li{
+ul.nav li{
     display:inline-block;
-    width:90px;
+    width:110px;
     height:50px;
     line-height: 50px;
     text-align:center;
@@ -292,7 +293,7 @@ ul.nav > li:hover ul.nav-sub{
 
 ul.nav-sub > li{
     border-top: 1px solid gray;
-    width:90px;
+    width:110px;
     height:50px;
     line-height: 50px;
     background-color:#555555;

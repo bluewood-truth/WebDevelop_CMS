@@ -42,6 +42,10 @@ function login_check(id, pw){
 }
 
 
+function goto_board(board_id){
+    location.href="http://uraman.m-hosting.kr/ex_cms/board/?id="+board_id;
+}
+
 // 로그아웃
 function logout(){
     location.href="common/process/_logout_process.php";

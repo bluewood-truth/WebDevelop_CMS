@@ -20,29 +20,34 @@
             echo $result['nickname'];
         }
     }
+
+    $board_group = sql_query("SELECT * FROM CMS_board_group ORDER BY order_nav");
  ?>
 <script src="/ex_cms/common/common.js"></script>
 <header class="header">
     <div class="screen-width">
         <span id="logo-mini"><a href="http://uraman.m-hosting.kr/ex_cms/">CMS WEB</a></span>
-
         <ul class="nav">
+        <?
+            while($group_row = sql_get_row($board_group)){
+                $board = sql_query("SELECT * FROM CMS_board WHERE 'group_id' = ".$group_row["id"]." ORDER BY order_sub");
+                echo '
+                <li>
+                    <a href="#">'.$group_row["name_kor"].'</a>
+                    <ul class="nav-sub">';
+                    while($board_row = sql_get_row($board)){
+                        if(is_null($board_row["order_sub"]))
+                            continue;
+                        echo '<li><a href="http://uraman.m-hosting.kr/ex_cms/board/?id='.$board_row['id'].'">'.$board_row["name_kor"].'</a></li>';
+                    }
+                echo '
+                    </ul>
+                </li>';
+            }
+
+        ?>
             <li>
                 <a href="#">그룹1</a>
-                <ul class="nav-sub">
-                    <li><a href="#">서브1</a></li>
-                    <li><a href="#">서브2</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">그룹2</a>
-                <ul class="nav-sub">
-                    <li><a href="#">서브1</a></li>
-                    <li><a href="#">서브2</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">그룹3</a>
                 <ul class="nav-sub">
                     <li><a href="#">서브1</a></li>
                     <li><a href="#">서브2</a></li>

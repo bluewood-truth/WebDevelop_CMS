@@ -1,5 +1,6 @@
 <?php
     include_once $_SERVER["DOCUMENT_ROOT"]."/ex_cms/common/common.php";
+    sql_connect();
  ?>
 
 <!DOCTYPE html>
@@ -11,6 +12,14 @@
 </head>
 <body>
     <?insert_parts("header.php")?>
-    <? include $_SERVER["DOCUMENT_ROOT"]."/ex_cms/board/list.php"; ?>
+    <div class="screen-width">
+        <h2>게시판 제목</h2>
+        <?
+            if(isset($_GET["post"]))
+                include $_SERVER["DOCUMENT_ROOT"]."/ex_cms/board/view.php";
+        ?>
+
+        <? include $_SERVER["DOCUMENT_ROOT"]."/ex_cms/board/list.php"; ?>
+    </div>
 </body>
 </html>

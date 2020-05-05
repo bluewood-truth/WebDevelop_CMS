@@ -140,7 +140,7 @@
         }
         // 중복검사
         else if(duplicate_check(tmp_em.value,"CMS_userinfo","email",true)){
-            set_msg(tmp_em, "X 사용 중인 닉네임입니다.");
+            set_msg(tmp_em, "X 사용 중인 이메일입니다.");
             checked["email"] = false;
         }
         // 가능
