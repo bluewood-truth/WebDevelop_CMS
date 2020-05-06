@@ -1,7 +1,4 @@
 <?php
-    if(isset($_GET["id"]) == false){
-        invalid_access();
-    }
     $table = sql_query("SELECT * from CMS_post_".$_GET['id']." ORDER BY id DESC");
 
     $result = sql_query("SELECT category_list FROM CMS_board WHERE 'id'='".$_GET['id']."'");
@@ -24,9 +21,9 @@
     <tbody>
         <?
             while($row = sql_get_row($table)){
-                $author = $row["author_nickname"];
+                $author = $row["guest_name"];
                 if(is_null($author)){
-                    $author = $row["guest_name"];
+                    $author = $row["author_nickname"].member_icon();
                 }
 
                 $date_tmp = date_create($row["write_date"]);
@@ -39,7 +36,7 @@
                 <tr>
                     <td class="board_num">'.$row["id"].'</td>';
                 if($is_categorical) echo '<td class="board_cat">'.$row["category"].'</td>';
-                echo '<td class="board_title">'.$row["title"].'</td>
+                echo '<td class="board_title"><a href="http://uraman.m-hosting.kr/ex_cms/board/?id='.$_GET["id"].'&post='.$row["id"].'">'.$row["title"].'</a></td>
                     <td class="board_author">'.$author.'</td>
                     <td class="board_date">'.$date.'</td>
                     <td class="board_views">'.$row["views"].'</td>

@@ -1,6 +1,13 @@
 <?php
     include_once $_SERVER["DOCUMENT_ROOT"]."/ex_cms/common/common.php";
     sql_connect();
+
+    if(isset($_GET["id"]) == false){
+        invalid_access();
+    }
+
+    $sql = "SELECT name_kor FROM CMS_board WHERE id='".$_GET["id"]."'";
+    $title = sql_get_row(sql_query($sql))['name_kor'];
  ?>
 
 <!DOCTYPE html>
@@ -13,7 +20,7 @@
 <body>
     <?insert_parts("header.php")?>
     <div class="screen-width">
-        <h2>게시판 제목</h2>
+        <h2><? echo $title; ?></h2>
         <?
             if(isset($_GET["post"]))
                 include $_SERVER["DOCUMENT_ROOT"]."/ex_cms/board/view.php";

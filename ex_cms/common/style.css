@@ -1,17 +1,15 @@
 /* ===============================================
 공통
 =============================================== */
-input {
-    font-size:12px;
-}
+input { font-size:12px; }
 
-a {
-    text-decoration: none;
-}
+.spacer {clear: both;}
 
-p{
-    margin:0;
-}
+a { text-decoration: none; }
+
+p{ margin:0; }
+
+ul { list-style:none; padding:0;}
 
 body{
     background-color: #eeeeee;
@@ -26,6 +24,15 @@ body{
     margin:40px 0px;
 }
 
+span.member-icon{
+    font-size:10px;
+    color:white;
+    background-color: #ff7530;
+    border-radius: 3px;
+    padding:2px 3px;
+    margin:0 2px;
+    letter-spacing:-1px;
+}
 
 .text-stroke {
     text-shadow:
@@ -82,7 +89,7 @@ p.article-text{
     color:#555555;
 }
 
-.post{
+.hidden-data{
     width:0;
     height:0;
     visibility:hidden;
@@ -117,7 +124,6 @@ a#join{
 =============================================== */
 ul#join-elements-list{
     padding:0px;
-    list-style:none;
     text-align:left;
 }
 
@@ -218,12 +224,70 @@ table.board_list tbody{
 
 .board_num{ width:60px;}
 .board_cat{width:100px;}
-.board_title{}
-td.board_title{text-align: left; padding:0 10px;}
-.board_author{width:110px;}
+.board_title{text-align: left; padding:0 10px;}
+.board_title a{color:black}
+.board_title a:hover{text-decoration: underline;}
+.board_title a:visited{color:#555;}
+.board_author{width:140px;}
 .board_date{width:80px;}
 .board_views{width:60px;}
 .board_recommends{width:60px;}
+
+
+article#post{
+    font-size:13px;
+}
+
+#post-title-container{
+    border-top:2px #999 solid;
+    border-bottom:1px #999 solid;
+    background-color:white;
+}
+
+.post-title-box{
+    margin: 5px 0px;
+    float:left;
+    width:100%;
+}
+
+#post-category{ font-weight: bold; font-size:14px; color:#555; margin-left:15px;}
+#post-title{ font-weight: bold; font-size:14px; margin-left:15px;}
+#post-name{margin-left:15px}
+#post-date{ margin-left:5px; padding-left: 10px; border-left: 1px #999 solid; }
+.post-info-etc {float:right; margin-right:15px;}
+
+#post-content-container{margin-bottom:30px;}
+#post-content{margin:30px 0;}
+
+#post-recommend-box{ text-align:center; }
+.btn-recommend {margin:0; width:70px; height:30px}
+.btn-recommend .up{color:red; font-weight:bold}
+.btn-recommend .down{color:blue; font-weight:bold}
+
+
+/* ===============================================
+댓글
+=============================================== */
+
+ul#comment-container { margin:0; padding-top:10px;
+    border-top: 2px #999 solid; border-bottom: 2px #999 solid; }
+
+.cmt{padding:10px 15px; border-bottom:1px #bbb solid;}
+.cmt-name{font-weight:bold; text-align: center}
+.cmt-date{margin-left:10px; font-size:12px; color:#555;}
+.cmt-content{margin:10px 0}
+
+.comment-write-box{padding:10px 0; width:100%; height:100px; border-bottom:2px #999 solid; display: flex;justify-content: center;}
+.comment-write-box div{float:left; padding:5px;}
+
+.comment-write-head {width:160px; height:100%;}
+.comment-write-head input {padding: 5px; margin-bottom:5px;}
+
+.comment-write-textarea{width:660px; height:80px;}
+.comment-write-textarea textarea{width:100%; height:100%;box-sizing: border-box; resize:none;padding:10px; }
+
+.comment-write-btn{height:80px; width:80px}
+.comment-write-btn input{height:100%; width:100%; background-color:#ff7530; border:none; border-radius: 5px; color:white; font-size:14px; font-weight: bold}
 
 /* ===============================================
 헤더
@@ -258,7 +322,6 @@ span#logo-mini a{
 }
 
 ul.nav{
-    list-style:none;
     height:0px;
     width:auto;
     margin:0;
@@ -280,7 +343,6 @@ ul.nav > li:hover{
 }
 
 ul.nav-sub{
-    list-style:none;
     display:none;
     position:absolute;
     padding:0;

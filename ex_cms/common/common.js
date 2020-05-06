@@ -1,6 +1,6 @@
 // form id, post 이름, 값
 function set_post(parentId, name, value){
-    var html = "<input name='"+name+"' value='"+value+"' class='post'>";
+    var html = "<input name='"+name+"' value='"+value+"' class='hidden-data'>";
     $("#"+parentId).append(html);
 }
 
@@ -25,7 +25,7 @@ function duplicate_check(value,table,col,only_not_deleted = false){
 function login_check(id, pw){
     var result;
     $.ajax({
-        url:"/ex_cms/common/process/_login_check.php",
+        url:"http://uraman.m-hosting.kr/ex_cms/common/process/_login_check.php",
         method:"POST",
         async:false,
         data: {"id":id, "pw":pw},
@@ -48,5 +48,5 @@ function goto_board(board_id){
 
 // 로그아웃
 function logout(){
-    location.href="common/process/_logout_process.php";
+    location.href="http://uraman.m-hosting.kr/ex_cms/common/process/_logout_process.php";
 }

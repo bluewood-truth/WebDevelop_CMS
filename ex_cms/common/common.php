@@ -25,6 +25,10 @@
         return mysqli_fetch_assoc($table);
     }
 
+    function sql_get_num_rows($table){
+        return mysqli_num_rows($table);
+    }
+
     function sql_duplicate_check($value, $table, $col, $only_not_deleted = "false"){
         $sql = "SELECT ".$col." FROM ".$table." WHERE ".$col." = '".$value."'";
         if($only_not_deleted == "true"){
@@ -52,6 +56,7 @@
 
 
 
+
     function filter($text, $is_text=false){
         global $conn;
 
@@ -75,5 +80,24 @@
 
     function insert_parts($parts_name){
         include $_SERVER["DOCUMENT_ROOT"]."/ex_cms/common/parts/".$parts_name;
+    }
+
+    function member_icon(){
+        return "<span class='member-icon'>회원</span>";
+    }
+
+    function get_login_nickname($icon = true){
+        if(isset($_SESSION['login'])){
+            $id = $_SESSION['login'];
+            $sql = "SELECT nickname FROM CMS_userinfo WHERE user_id='".$id."'";
+            $result = sql_get_row(sql_query($sql));
+            $result = $result['nickname'];
+            if($icon)
+                $result = $result.member_icon();
+            return $result;
+        }
+        else{
+            return NULL;
+        }
     }
 ?>
