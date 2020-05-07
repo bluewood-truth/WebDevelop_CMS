@@ -40,4 +40,9 @@
     <div>
         <? include "comment.php" ?>
     </div>
+    <div class="post-bottom-buttons">
+        <button type="button" class="btn-mini bg-gray">수정</button>
+        <button type="button" class="btn-mini bg-gray">삭제</button>
+        <button type="button" class="btn-mini bg-orange">글쓰기</button>
+    </div>
 </article>

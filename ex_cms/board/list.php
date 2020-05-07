@@ -48,3 +48,6 @@
         ?>
     </tbody>
 </table>
+<div class="post-bottom-buttons">
+    <button type="button" class="btn-mini bg-orange">글쓰기</button>
+</div>

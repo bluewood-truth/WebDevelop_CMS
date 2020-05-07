@@ -21,8 +21,8 @@ function duplicate_check(value,table,col,only_not_deleted = false){
     return result;
 }
 
-// 중복체크할 값, 중복체크할 테이블과 열
-function login_check(id, pw){
+// 로그인 시 아이디와 패스워드가 일치하는 계정이 있는지 체크
+function check_user_id_pw_valid(id, pw){
     var result;
     $.ajax({
         url:"http://uraman.m-hosting.kr/ex_cms/common/process/_login_check.php",
@@ -37,7 +37,7 @@ function login_check(id, pw){
             console.log(result);
         }}
     );
-    // 중복이면 true, 중복아니면 false
+    // 존재하는 계정이면 true, 아니면 false
     return result;
 }
 

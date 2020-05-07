@@ -3,6 +3,11 @@
     if(isset($_SESSION["login"])){
         header('Location:http://uraman.m-hosting.kr/ex_cms/');
     }
+
+    if(isset($_SERVER['HTTP_REFERER']))
+        $_SESSION["login_refer"] = $_SERVER['HTTP_REFERER'];
+    else
+        $_SESSION["login_refer"] = "http://uraman.m-hosting.kr/ex_cms/board/";
  ?>
 
 <!DOCTYPE html>
@@ -49,7 +54,7 @@
         var id = $("#login-form")[0].id.value;
         var pw = $("#login-form")[0].password.value;
 
-        var check = login_check(id,pw);
+        var check = check_user_id_pw_valid(id,pw);
         console.log(check);
         if(check == true){
             $("#login-form")[0].submit();

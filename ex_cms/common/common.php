@@ -54,8 +54,10 @@
     }
 
 
-
-
+    function referer(){
+        if(isset($_SERVER['HTTP_REFERER']))
+            header("Location:".$_SERVER['HTTP_REFERER']."");
+    }
 
     function filter($text, $is_text=false){
         global $conn;
@@ -76,7 +78,11 @@
         echo 'location.href=document.referrer;';
         echo '</script>';
     }
-
+    
+    function kick(){
+        header("Location:https://www.google.com/");
+        exit;
+    }
 
     function insert_parts($parts_name){
         include $_SERVER["DOCUMENT_ROOT"]."/ex_cms/common/parts/".$parts_name;
@@ -89,7 +95,7 @@
     function get_login_nickname($icon = true){
         if(isset($_SESSION['login'])){
             $id = $_SESSION['login'];
-            $sql = "SELECT nickname FROM CMS_userinfo WHERE user_id='".$id."'";
+            $sql = "SELECT nickname FROM CMS_userinfo WHERE id='".$id."'";
             $result = sql_get_row(sql_query($sql));
             $result = $result['nickname'];
             if($icon)
