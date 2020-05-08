@@ -6,6 +6,8 @@
         invalid_access();
     }
 
+    $_SESSION["prev_page"] = $_SERVER['HTTP_REFERER']; 
+
     $process = "";
     switch($_GET["action"]){
         case "edit_cmt":
@@ -16,14 +18,22 @@
         case "delete_cmt":
             if(!isset($_GET["cid"]))
                 kick();
-            $process = "http://uraman.m-hosting.kr/ex_cms/board/_delete_comment_process.php/?id=".$_GET["id"]."&cid=".$_GET["cid"];
+            $process = "http://uraman.m-hosting.kr/ex_cms/board/_comment_delete_process.php/?id=".$_GET["id"]."&cid=".$_GET["cid"];
             break;
     }
 
-    // SESSION체크하고 로그인되어 있으면 바로 process로 패스함
+    // SESSION체크하고 해당 댓글 작성자id와 일치하면 바로 프로세스로 넘김
     if(isset($_SESSION['login'])){
+        // 댓글일 경우
+        if(isset($_GET["cid"])){
+            $sql = "SELECT * FROM CMS_comment_".$_GET["id"]." WHERE id=".$_GET["cid"];
+            $result = sql_get_row(sql_query($sql))["author_id"];
 
-        // exit;
+            if(!is_null($result) && $result == $_SESSION["login"]){
+                header("Location:".$process);
+                exit;
+            }
+        }
     }
 
     $sql = "SELECT name_kor FROM CMS_board WHERE id='".$_GET["id"]."'";
@@ -46,12 +56,11 @@
 
         <div id="password-box">
             <form action="<? echo $process ?>" method="post">
-            <h3>비밀번호를 입력하세요.</h3>
-            <input id="pw" minlength=2 maxlength=16 required="required" type="password" name="" value="">
-            <input id="btn-ok" type="submit" value="확인">
+                <h3>비밀번호를 입력하세요.</h3>
+                <input id="pw" minlength=2 maxlength=16 required="required" type="password" name="password" value="">
+                <input id="btn-ok" type="submit" value="확인">
             </form>
         </div>
-
     </div>
 </body>
 </html>

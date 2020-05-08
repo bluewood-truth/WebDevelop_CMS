@@ -11,6 +11,5 @@
 </head>
 <body>
     <?insert_parts("header.php")?>
-
 </body>
 </html>

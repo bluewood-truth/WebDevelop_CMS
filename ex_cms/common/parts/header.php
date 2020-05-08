@@ -34,15 +34,7 @@
                     </ul>
                 </li>';
             }
-
         ?>
-            <li>
-                <a href="#">그룹1</a>
-                <ul class="nav-sub">
-                    <li><a href="#">서브1</a></li>
-                    <li><a href="#">서브2</a></li>
-                </ul>
-            </li>
         </ul>
         <input type="button" class="nav-btn" style="display:<? display_style('none','block') ?>" value="로그인" onclick="location.href='http://uraman.m-hosting.kr/ex_cms/login'">
         <input type="button" class="nav-btn" style="display:<? display_style('block','none') ?>" value="로그아웃" onclick="logout();">

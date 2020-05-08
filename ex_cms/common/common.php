@@ -56,7 +56,7 @@
 
     function referer(){
         if(isset($_SERVER['HTTP_REFERER']))
-            header("Location:".$_SERVER['HTTP_REFERER']."");
+            header("Location:".$_SERVER['HTTP_REFERER']);
     }
 
     function filter($text, $is_text=false){
@@ -67,18 +67,22 @@
             $text = str_replace("\n","<br>",$text);
         }
         $text = mysqli_real_escape_string($conn,$text);
-
+        $text = preg_replace('/\s+/', ' ',$text);
         return $text;
     }
 
 
-    function invalid_access($msg="잘못된 접근입니다."){
+    function invalid_access($msg="잘못된 접근입니다.", $link="referer"){
         echo '<script>';
         echo 'alert("'.$msg.'");';
-        echo 'location.href=document.referrer;';
+        if($link == "referer")
+            echo 'location.href=document.referer;';
+        else
+            echo 'location.href="'.$link.'";';
         echo '</script>';
+        exit;
     }
-    
+
     function kick(){
         header("Location:https://www.google.com/");
         exit;

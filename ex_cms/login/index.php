@@ -4,10 +4,12 @@
         header('Location:http://uraman.m-hosting.kr/ex_cms/');
     }
 
-    if(isset($_SERVER['HTTP_REFERER']))
+    if(isset($_SESSION["prev_page"])){
+        $_SESSION["login_refer"] = $_SESSION["prev_page"];
+    else if(isset($_SERVER['HTTP_REFERER']))
         $_SESSION["login_refer"] = $_SERVER['HTTP_REFERER'];
     else
-        $_SESSION["login_refer"] = "http://uraman.m-hosting.kr/ex_cms/board/";
+        $_SESSION["login_refer"] = "http://uraman.m-hosting.kr/ex_cms/";
  ?>
 
 <!DOCTYPE html>

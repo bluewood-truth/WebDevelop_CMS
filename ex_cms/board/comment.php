@@ -18,6 +18,10 @@
                     $is_mine = true;
             }
 
+            $is_guest = "guest";
+            if(is_null($cmt['guest_name']))
+                $is_guest = "member";
+
             echo'
             <li>
                 <div class="cmt" id="cid'.$cmt['id'].'">
@@ -27,8 +31,8 @@
                             <a href="#">답글</a>';
             if(!is_null($cmt["guest_name"]) || $is_mine )
                 echo'
-                                <a href="http://uraman.m-hosting.kr/ex_cms/board/password_check?id='.$_GET['id'].'&cid='.$cmt['id'].'&action=edit_cmt">수정</a>
-                                <a href="http://uraman.m-hosting.kr/ex_cms/board/password_check?id='.$_GET['id'].'&cid='.$cmt['id'].'&action=delete_cmt">삭제</a>';
+                                <a name="'.$_GET["id"].'/'.$cmt['id'].'/edit_cmt/'.$is_guest.'" onclick="comment_password_check(this)">수정</a>
+                                <a name="'.$_GET["id"].'/'.$cmt['id'].'/delete_cmt/'.$is_guest.'" onclick="comment_password_check(this)">삭제</a>';
             echo'
                         </span>
                     </div>
@@ -56,7 +60,7 @@
             ?>
         </div>
         <div class="comment-write-textarea">
-            <textarea name="cmt-write-content" rows="3" cols="80" required="required"></textarea>
+            <textarea maxlength=512 name="cmt-write-content" rows="3" cols="80" required="required"></textarea>
         </div>
         <div class="comment-write-btn">
             <input type="submit" name="" value="등록">
@@ -71,4 +75,17 @@
     cmt_btn.addEventListener("click",function(){
             $("#comment-write-container")[0].action += "?board="+get[0]+"&post="+get[1];
     });
+
+    function comment_password_check(btn){
+        var info = btn.name.split("/");
+        var link = "http://uraman.m-hosting.kr/ex_cms/board/password_check/?id="+info[0]+"&cid="+info[1]+"&action="+info[2];
+
+        if(info[3] == "member" && info[2] == "delete_cmt"){
+            if(confirm("댓글을 삭제하시겠습니까?"))
+                location.href=link;
+        }
+        else{
+            location.href=link;
+        }
+    }
 </script>

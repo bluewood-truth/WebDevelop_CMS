@@ -25,7 +25,7 @@ function duplicate_check(value,table,col,only_not_deleted = false){
 function check_user_id_pw_valid(id, pw){
     var result;
     $.ajax({
-        url:"http://uraman.m-hosting.kr/ex_cms/common/process/_login_check.php",
+        url:"http://uraman.m-hosting.kr/ex_cms/common/process/_check_user_id_pw_valid.php",
         method:"POST",
         async:false,
         data: {"id":id, "pw":pw},
@@ -49,4 +49,21 @@ function goto_board(board_id){
 // 로그아웃
 function logout(){
     location.href="http://uraman.m-hosting.kr/ex_cms/common/process/_logout_process.php";
+}
+
+// 로그인 되어있는지 체크
+function is_logined(){
+    var result;
+    $.ajax({
+        url:"http://uraman.m-hosting.kr/ex_cms/common/process/_is_login_check.php",
+        async:false,
+        dataType: "text",
+        success:function(data){
+            result = data=="true" ? true : false;
+
+            console.log(data);
+            console.log(result);
+        }}
+    );
+    return result;
 }

@@ -3,9 +3,7 @@
     sql_connect();
 
     // 댓글 내용이 없으면 kick
-    $text = str_replace("\n","",$_POST["cmt-write-content"]);
-    $text = str_replace(" ","",$text);
-    $text = str_replace("　","",$text);
+    $text = preg_replace('/\s+/', '',$_POST["cmt-write-content"]);
     if(empty($text)){
         referer();
     }
