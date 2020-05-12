@@ -8,21 +8,21 @@
     <li class="join-element padding-bottom-mini">
         <p class="join-label-box"><label class="join-label" for="input_id">아이디</label></P>
         <div class="join-input-box">
-            <input class="join-input width-full" maxlength="20" type="text" id="input_id" name="input_id">
+            <input class="join-input width-full" minlength="5" maxlength="20" type="text" id="input_id" name="input_id">
         </div>
         <p class="join-message"></p>
     </li>
     <li class="join-element padding-bottom-mini">
         <p class="join-label-box"><label class="join-label" for="input_pw">비밀번호</label></P>
         <div class="join-input-box">
-            <input class="join-input width-full" maxlength="20" type="password" id="input_pw" name="input_pw">
+            <input class="join-input width-full" minlength="8" maxlength="16" type="password" id="input_pw" name="input_pw">
         </div>
         <p class="join-message"></p>
     </li>
     <li class="join-element padding-bottom-mini">
         <p class="join-label-box"><label class="join-label" for="input_pwc">비밀번호 확인</label></P>
         <div class="join-input-box">
-            <input class="join-input width-full" maxlength="20" type="password" id="input_pwc" name="input_pwc">
+            <input class="join-input width-full" minlength="8" maxlength="16" type="password" id="input_pwc" name="input_pwc">
         </div>
         <p class="join-message"></p>
     </li>
@@ -38,7 +38,7 @@
     <li class="join-element padding-bottom-mini">
         <p class="join-label-box"><label class="join-label" for="input_nickname">닉네임</label></P>
         <div class="join-input-box">
-            <input class="join-input width-full" maxlength="20" type="text" id="input_nickname" name="input_nickname">
+            <input class="join-input width-full" minlength="2" maxlength="8" type="text" id="input_nickname" name="input_nickname">
         </div>
         <p class="join-message"></p>
     </li>

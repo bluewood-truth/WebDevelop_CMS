@@ -6,19 +6,21 @@
         invalid_access();
     }
 
-    $_SESSION["prev_page"] = $_SERVER['HTTP_REFERER']; 
+    $_SESSION["prev_page"] = $_SERVER['HTTP_REFERER'];
 
     $process = "";
     switch($_GET["action"]){
         case "edit_cmt":
             if(!isset($_GET["cid"]))
-                kick();
+                kick(1);
             $process = "http://uraman.m-hosting.kr/ex_cms/board/edit_comment/?id=".$_GET["id"]."&cid=".$_GET["cid"];
             break;
         case "delete_cmt":
             if(!isset($_GET["cid"]))
-                kick();
+                kick(2);
             $process = "http://uraman.m-hosting.kr/ex_cms/board/_comment_delete_process.php/?id=".$_GET["id"]."&cid=".$_GET["cid"];
+            break;
+        case "edit_post":
             break;
     }
 

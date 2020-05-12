@@ -19,8 +19,9 @@
             }
 
             $is_guest = "guest";
-            if(is_null($cmt['guest_name']))
+            if(is_null($cmt['guest_name'])){
                 $is_guest = "member";
+            }
 
             echo'
             <li>
@@ -29,10 +30,10 @@
                         <span class="cmt-name">'.$author.'</span><span class="cmt-date">'.$cmt['write_date'].'</span>
                         <span class="cmt-btns">
                             <a href="#">답글</a>';
-            if(!is_null($cmt["guest_name"]) || $is_mine )
+            if(!is_null($cmt["guest_name"]) || $is_mine ){
                 echo'
                                 <a name="'.$_GET["id"].'/'.$cmt['id'].'/edit_cmt/'.$is_guest.'" onclick="comment_password_check(this)">수정</a>
-                                <a name="'.$_GET["id"].'/'.$cmt['id'].'/delete_cmt/'.$is_guest.'" onclick="comment_password_check(this)">삭제</a>';
+                                <a name="'.$_GET["id"].'/'.$cmt['id'].'/delete_cmt/'.$is_guest.'" onclick="comment_password_check(this)">삭제</a>'; }
             echo'
                         </span>
                     </div>

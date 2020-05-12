@@ -8,11 +8,11 @@
 
     // prev_page가 없으면 kick (패스워드 체크 페이지를 넘어욌으면 있어야 함)
     if(!isset($_SESSION["prev_page"]))
-        kick();
+        kick(1);
 
     // 비회원인데 password가 없으면 kick
     if(!isset($_SESSION["login"]) && !isset($_POST["password"]))
-        kick();
+        kick(2);
 
     $result = sql_query("SELECT * FROM CMS_comment_".$_GET["id"]." WHERE id=".$_GET["cid"]);
     if(sql_get_num_rows($result) == 0){
@@ -22,13 +22,19 @@
 
     // 로그인중이고 cmt author_id가 세션과 일치하지 않으면 kick
     if(isset($_SESSION["login"])){
-        if($_SESSION["login"] != $cmt["author_id"])
-            kick();
+        if($_SESSION["login"] != $cmt["author_id"]){
+            kick(3);
+        }
     }
     // 로그인 중이 아니고 패스워드가 cmt guest_password와 일치하지 않으면 뒤로가기
+    // 일치하면 패스워드를 세션에 저장
     else{
-        if(sha1($_POST["password"]) != $cmt["guest_password"])
+        if(sha1($_POST["password"]) != $cmt["guest_password"]){
             invalid_access("비밀번호가 일치하지 않습니다.",$_SESSION["prev_page"]);
+        }
+        else {
+            $_SESSION["password"] = $_POST["password"];
+        }
     }
 
     $sql = "SELECT name_kor FROM CMS_board WHERE id='".$_GET["id"]."'";
@@ -68,7 +74,6 @@
                         <input type="submit" name="" value="등록">
                     </div>
                 </div>
-                <input class="hidden-data" name="indo" value="">
             </form>
         </div>
     </div>

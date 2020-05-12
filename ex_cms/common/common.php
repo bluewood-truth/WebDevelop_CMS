@@ -3,6 +3,7 @@
         session_start();
     }
 
+    header('Content-Type: text/html; charset=utf-8');
     ini_set('display_errors', 1);
     $conn = "";
 
@@ -75,16 +76,31 @@
     function invalid_access($msg="잘못된 접근입니다.", $link="referer"){
         echo '<script>';
         echo 'alert("'.$msg.'");';
-        if($link == "referer")
+
+        if($link == "referer"){
             echo 'location.href=document.referer;';
-        else
+        }
+        else{
             echo 'location.href="'.$link.'";';
+        }
         echo '</script>';
+
+        if(isset($_SESSION["prev_page"])){
+            unset($_SESSION["prev_page"]);
+        }
         exit;
     }
 
-    function kick(){
-        header("Location:https://www.google.com/");
+    function kick($code=null){
+        if(is_null($code)){
+            header("Location:https://www.google.com/");
+        }
+        else{
+            echo '<script>';
+            echo 'alert("'.$code.'");';
+            echo 'location.href="https://www.google.com/";';
+            echo '</script>';
+        }
         exit;
     }
 

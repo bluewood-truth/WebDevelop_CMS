@@ -4,11 +4,11 @@
 
     // 게시판 id와 코멘트 id가 없으면 kick
     if(!isset($_GET["id"]) || !isset($_GET["cid"]) )
-        kick();
+        kick(1);
 
     // prev_page가 없으면 kick (패스워드 체크 페이지를 넘어욌으면 있어야 함)
     if(!isset($_SESSION["prev_page"]))
-        kick();
+        kick(2);
 
     $id = $_GET['id'];
     $cid = $_GET['cid'];
@@ -24,13 +24,13 @@
     if(isset($_SESSION["login"]) == true && !is_null($row['author_id'])){
         // 자기 댓글이 아니면 kick
         if($row['author_id'] != $_SESSION["login"]){
-            kick();
+            kick(3);
         }
     }
     // 로그인 안했거나 게스트로 쓴 댓글인 경우
     else {
         if(!isset($_POST["password"]))
-            kick();
+            kick(4);
         $password = sha1($_POST["password"]);
 
         if($row['guest_password'] != $password)

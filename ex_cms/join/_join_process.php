@@ -20,7 +20,7 @@
 
     // 유효성 검사
     if(preg_match($check_id,$id) == False || preg_match($check_pw,$pw) == False || preg_match($check_email,$email) == False || preg_match($check_nickname,$nickname) == False){
-        header('Location:http://uraman.m-hosting.kr/ex_cms/');
+        kick(1);
         exit;
     }
 
@@ -28,7 +28,7 @@
 
     // 중복 검사
     if(sql_duplicate_check($id,"CMS_userinfo","user_id") || sql_duplicate_check($nickname,"CMS_userinfo","nickname",True) || sql_duplicate_check($email,"CMS_userinfo","email",True)){
-        header('Location:http://uraman.m-hosting.kr/ex_cms/');
+        kick(2);
         exit;
     }
 

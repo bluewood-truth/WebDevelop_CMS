@@ -223,7 +223,8 @@ table.board_list tbody{
 }
 
 .board_num{ width:60px;}
-.board_cat{width:100px;}
+.board_cat{width:80px;}
+tbody .board_cat{font-weight: bold;}
 .board_title{text-align: left; padding:0 10px;}
 .board_title a{color:black}
 .board_title a:hover{text-decoration: underline;}
@@ -274,6 +275,33 @@ article#post{
 #password-box #pw{ height:35px; box-sizing: border-box; padding:5px}
 #password-box #btn-ok{ width:75px; height:35px; background-color: #ff7530; border:none; border-radius: 3px;
                         color:white; font-size:14px; font-weight:bold}
+
+
+/* ===============================================
+글쓰기
+=============================================== */
+#post-write-box{
+    box-sizing: border-box; padding:15px;
+    border:1px solid #ccc; background-color: #eaeaea;
+    border-radius: 5px;
+}
+.texteditor{width:99%;}
+
+#post-write-box p{display:flex;}
+#post-write-box input{
+    padding: 5px; font-weight: bold; font-size:13px;
+    height: 100%; box-sizing: border-box;
+    margin-right:5px;
+}
+#post-write-box select{
+    padding: 5px; font-weight: bold; font-size:13px; width:10%;
+    height: 100%; box-sizing: border-box;
+    margin-right:5px;
+}
+
+.post-write-title{ margin: 10px 0;}
+.post-write-title input {width:80%;}
+
 
 /* ===============================================
 댓글

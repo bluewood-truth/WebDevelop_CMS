@@ -41,8 +41,21 @@
         <? include "comment.php" ?>
     </div>
     <div class="post-bottom-buttons">
-        <button type="button" class="btn-mini bg-gray">수정</button>
-        <button type="button" class="btn-mini bg-gray">삭제</button>
-        <button type="button" class="btn-mini bg-orange">글쓰기</button>
+        <button id="post-edit-button" type="button" class="btn-mini bg-gray">수정</button>
+        <button id="post-delete-button" type="button" class="btn-mini bg-gray">삭제</button>
+        <button id="post-write-button" type="button" class="btn-mini bg-orange">글쓰기</button>
     </div>
 </article>
+
+<script>
+    $("#post-write-button")[0].addEventListener("click",function(){
+        location.href="http://uraman.m-hosting.kr/ex_cms/board/write_post/?id=<? echo $_GET["id"]; ?>";
+    });
+    $("#post-edit-button")[0].addEventListener("click",function(){
+        location.href="http://uraman.m-hosting.kr/ex_cms/board/write_post/?id=<? echo $_GET["id"]; ?>&action=edit_post&pid=<?echo $_GET["post"];?>";
+    });
+    $("#post-delete-button")[0].addEventListener("click",function(){
+        location.href="http://uraman.m-hosting.kr/ex_cms/board/password_check/?id=<? echo $_GET["id"]; ?>&action=delete_post&pid=<?echo $_GET["post"];?>";
+    });
+
+</script>

@@ -1,7 +1,7 @@
 <?php
     $table = sql_query("SELECT * from CMS_post_".$_GET['id']." ORDER BY id DESC");
 
-    $result = sql_query("SELECT category_list FROM CMS_board WHERE 'id'='".$_GET['id']."'");
+    $result = sql_query("SELECT * FROM CMS_board WHERE id='".$_GET['id']."'");
     $tmp = sql_get_row($result);
     $is_categorical = is_null($tmp["category_list"]) == false;
  ?>
@@ -49,5 +49,11 @@
     </tbody>
 </table>
 <div class="post-bottom-buttons">
-    <button type="button" class="btn-mini bg-orange">글쓰기</button>
+    <button id="post-write-button-bottom-list" type="button" class="btn-mini bg-orange">글쓰기</button>
 </div>
+
+<script>
+    $("#post-write-button-bottom-list")[0].addEventListener("click",function(){
+        location.href="http://uraman.m-hosting.kr/ex_cms/board/write_post/?id="+"<? echo $_GET["id"]; ?>";
+    });
+</script>
