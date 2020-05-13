@@ -11,5 +11,9 @@
 </head>
 <body>
     <?insert_parts("header.php")?>
+    <div id="main-content">
+        
+    </div>
+    <? insert_parts("footer.html") ?>
 </body>
 </html>

@@ -73,12 +73,14 @@
     }
 
 
+
+
     function invalid_access($msg="잘못된 접근입니다.", $link="referer"){
         echo '<script>';
         echo 'alert("'.$msg.'");';
 
         if($link == "referer"){
-            echo 'location.href=document.referer;';
+            echo 'location.href=document.referrer;';
         }
         else{
             echo 'location.href="'.$link.'";';
@@ -125,5 +127,12 @@
         else{
             return NULL;
         }
+    }
+
+    function strlen_check($text, $minlength, $maxlength){
+        if(mb_strlen($text) < $minlength || mb_strlen($text) > $maxlength){
+            return false;
+        }
+        return true;
     }
 ?>

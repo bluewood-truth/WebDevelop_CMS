@@ -55,7 +55,6 @@
     var check_id = /^[a-z0-9]{5,20}$/;
     var check_pw = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
     var check_email = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-    var check_nickname = /^.{2,8}$/;
 
     // 유효성 체크용 변수
     var checked = [];
@@ -154,7 +153,7 @@
     var tmp_nn = $("#input_nickname")[0];
     tmp_nn.addEventListener("blur",function(){
         // 유효성검사
-        if(!check_nickname.test(tmp_nn.value)){
+        if(tmp_nn.value.length < 2 || tmp_nn.value.length > 8){
             set_msg(tmp_nn, "X 2~8자의 닉네임만 사용 가능합니다.");
             checked["nickname"] = false;
         }

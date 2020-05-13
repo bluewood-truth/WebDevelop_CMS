@@ -2,33 +2,47 @@
     include_once $_SERVER["DOCUMENT_ROOT"]."/ex_cms/common/common.php";
     sql_connect();
 
-    if(isset($_GET["id"]) == false || isset($_GET["action"]) == false){
+    if(isset($_GET["id"]) == false || isset($_GET["action"]) == false || isset($_GET["pid"]) == false){
         invalid_access();
     }
 
-    $_SESSION["prev_page"] = $_SERVER['HTTP_REFERER'];
+    $_SESSION["prev_page"] = "http://uraman.m-hosting.kr/ex_cms/board/password_check/?id=".$_GET["id"]."&post=".$_GET["pid"];
 
     $process = "";
     switch($_GET["action"]){
         case "edit_cmt":
             if(!isset($_GET["cid"]))
-                kick(1);
+                kick(11);
             $process = "http://uraman.m-hosting.kr/ex_cms/board/edit_comment/?id=".$_GET["id"]."&cid=".$_GET["cid"];
             break;
         case "delete_cmt":
             if(!isset($_GET["cid"]))
-                kick(2);
+                kick(12);
             $process = "http://uraman.m-hosting.kr/ex_cms/board/_comment_delete_process.php/?id=".$_GET["id"]."&cid=".$_GET["cid"];
             break;
         case "edit_post":
+            $process = "http://uraman.m-hosting.kr/ex_cms/board/write_post/?action=edit_post&id=".$_GET["id"]."&pid=".$_GET["pid"];
+            break;
+        case "delete_post":
+            $process = "http://uraman.m-hosting.kr/ex_cms/board/_post_delete_process.php?id=".$_GET["id"]."&pid=".$_GET["pid"];
             break;
     }
 
-    // SESSION체크하고 해당 댓글 작성자id와 일치하면 바로 프로세스로 넘김
+    // SESSION체크하고 해당 작성자id와 일치하면 바로 프로세스로 넘김
     if(isset($_SESSION['login'])){
         // 댓글일 경우
         if(isset($_GET["cid"])){
-            $sql = "SELECT * FROM CMS_comment_".$_GET["id"]." WHERE id=".$_GET["cid"];
+            $sql = "SELECT author_id FROM CMS_comment_".$_GET["id"]." WHERE id=".$_GET["cid"];
+            $result = sql_get_row(sql_query($sql))["author_id"];
+
+            if(!is_null($result) && $result == $_SESSION["login"]){
+                header("Location:".$process);
+                exit;
+            }
+        }
+        // 글일 경우
+        if(isset($_GET["pid"])){
+            $sql = "SELECT author_id FROM CMS_post_".$_GET["id"]." WHERE id=".$_GET["pid"];
             $result = sql_get_row(sql_query($sql))["author_id"];
 
             if(!is_null($result) && $result == $_SESSION["login"]){
@@ -53,16 +67,19 @@
 </head>
 <body>
     <?insert_parts("header.php")?>
-    <div class="screen-width">
-        <h2><a href="<?echo $board_link; ?>"><? echo $title; ?></a></h2>
+    <div id="main-content">
+        <div class="screen-width">
+            <h2><a href="<?echo $board_link; ?>"><? echo $title; ?></a></h2>
 
-        <div id="password-box">
-            <form action="<? echo $process ?>" method="post">
-                <h3>비밀번호를 입력하세요.</h3>
-                <input id="pw" minlength=2 maxlength=16 required="required" type="password" name="password" value="">
-                <input id="btn-ok" type="submit" value="확인">
-            </form>
+            <div id="password-box">
+                <form action="<? echo $process ?>" method="post">
+                    <h3>비밀번호를 입력하세요.</h3>
+                    <input id="pw" minlength=2 maxlength=16 required="required" type="password" name="password" value="">
+                    <input id="btn-ok" type="submit" value="확인">
+                </form>
+            </div>
         </div>
     </div>
+    <?insert_parts("footer.html")?>
 </body>
 </html>

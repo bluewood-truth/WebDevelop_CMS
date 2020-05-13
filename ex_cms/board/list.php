@@ -32,11 +32,14 @@
                     $date = date_format($date_tmp,"H:i");
                 }
 
+                $cmt = sql_query("SELECT id FROM CMS_comment_".$_GET["id"]." WHERE post_id='".$row["id"]."'");
+                $cmt_num = sql_get_num_rows($cmt);
+
                 echo '
                 <tr>
                     <td class="board_num">'.$row["id"].'</td>';
                 if($is_categorical) echo '<td class="board_cat">'.$row["category"].'</td>';
-                echo '<td class="board_title"><a href="http://uraman.m-hosting.kr/ex_cms/board/?id='.$_GET["id"].'&post='.$row["id"].'">'.$row["title"].'</a></td>
+                echo '<td class="board_title"><a href="http://uraman.m-hosting.kr/ex_cms/board/?id='.$_GET["id"].'&post='.$row["id"].'">'.$row["title"].'</a><span class="board-post-cmt">'.$cmt_num.'</span></td>
                     <td class="board_author">'.$author.'</td>
                     <td class="board_date">'.$date.'</td>
                     <td class="board_views">'.$row["views"].'</td>
@@ -54,6 +57,6 @@
 
 <script>
     $("#post-write-button-bottom-list")[0].addEventListener("click",function(){
-        location.href="http://uraman.m-hosting.kr/ex_cms/board/write_post/?id="+"<? echo $_GET["id"]; ?>";
+        location.href="http://uraman.m-hosting.kr/ex_cms/board/write_post/?id=<? echo $_GET["id"]; ?>";
     });
 </script>

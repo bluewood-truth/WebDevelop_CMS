@@ -14,7 +14,7 @@
     $board_group = sql_query("SELECT * FROM CMS_board_group ORDER BY order_nav");
  ?>
 <script src="/ex_cms/common/common.js"></script>
-<header class="header">
+<header id="header">
     <div class="screen-width">
         <span id="logo-mini"><a href="http://uraman.m-hosting.kr/ex_cms/">CMS WEB</a></span>
         <ul class="nav">

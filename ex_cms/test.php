@@ -1,8 +1,8 @@
 <?php
-header('Content-Type: text/html; charset=utf-8');
 $test = "/^.{2,8}$/";
-$txt = "ㅁㄴㄹㄴ";
-echo $txt;
+$txt = "ㅁㄴㅇㄹ";
+echo mb_strlen($txt);
+echo $txt."<br>";
 var_dump(preg_match($test,$txt));
 
  ?>

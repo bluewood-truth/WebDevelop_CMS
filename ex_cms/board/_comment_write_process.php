@@ -40,9 +40,7 @@
             kick(3);
 
         // 글자수 안맞으면 kick
-        $check_name = "/^.{2,8}$/";
-        $check_pw = "/^.{2,16}$/";
-        if(preg_match($check_name,$_POST["cmt-write-name"]) == False || preg_match($check_pw,$_POST["cmt-write-pw"]) == False)
+        if(strlen_check($_POST["cmt-write-name"],2,8) == False || strlen_check($_POST["cmt-write-pw"],2,16) == False)
             kick(4);
 
         $name = filter($_POST["cmt-write-name"]);

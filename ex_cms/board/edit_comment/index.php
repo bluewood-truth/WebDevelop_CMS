@@ -52,30 +52,34 @@
 </head>
 <body>
     <?insert_parts("header.php")?>
-    <div class="screen-width">
-        <h2><a href="<?echo $board_link; ?>"><? echo $title; ?></a></h2>
+    <div class="main-content">
+        <div class="screen-width">
+            <h2><a href="<?echo $board_link; ?>"><? echo $title; ?></a></h2>
 
-        <div id="comment-edit-box">
-            <form action="_process.php?id=<?echo $_GET["id"]?>&cid=<?echo $_GET["cid"]?>" method="post">
-                <div class="comment-write-box">
-                    <div class="comment-write-head">
-                        <?
-                            if($nickname = get_login_nickname())
-                                echo '<div class="cmt-name long">'.$nickname.'</div>';
-                            else{
-                                echo '<div class="cmt-name long">'.$cmt["guest_name"].'</div>';
-                            }
-                        ?>
+            <div id="comment-edit-box">
+                <form action="_process.php?id=<?echo $_GET["id"]?>&cid=<?echo $_GET["cid"]?>" method="post">
+                    <div class="comment-write-box">
+                        <div class="comment-write-head">
+                            <?
+                                if($nickname = get_login_nickname())
+                                    echo '<div class="cmt-name long">'.$nickname.'</div>';
+                                else{
+                                    echo '<div class="cmt-name long">'.$cmt["guest_name"].'</div>';
+                                }
+                            ?>
+                        </div>
+                        <div class="comment-write-textarea">
+                            <textarea maxlength=512 name="cmt-write-content" rows="3" cols="80" required="required"><?echo str_replace("<br>","\n",$cmt["content"]);?></textarea>
+                        </div>
+                        <div class="comment-write-btn">
+                            <input type="submit" name="" value="등록">
+                        </div>
                     </div>
-                    <div class="comment-write-textarea">
-                        <textarea maxlength=512 name="cmt-write-content" rows="3" cols="80" required="required"><?echo $cmt["content"]?></textarea>
-                    </div>
-                    <div class="comment-write-btn">
-                        <input type="submit" name="" value="등록">
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
+
         </div>
     </div>
+    <?insert_parts("footer.html")?>
 </body>
 </html>

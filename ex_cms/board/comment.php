@@ -79,7 +79,7 @@
 
     function comment_password_check(btn){
         var info = btn.name.split("/");
-        var link = "http://uraman.m-hosting.kr/ex_cms/board/password_check/?id="+info[0]+"&cid="+info[1]+"&action="+info[2];
+        var link = "http://uraman.m-hosting.kr/ex_cms/board/password_check/?id="+info[0]+"&cid="+info[1]+"&action="+info[2]+"&pid=<?$_GET["post"]?>";
 
         if(info[3] == "member" && info[2] == "delete_cmt"){
             if(confirm("댓글을 삭제하시겠습니까?"))

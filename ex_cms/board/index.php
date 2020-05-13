@@ -29,14 +29,17 @@
 </head>
 <body>
     <?insert_parts("header.php")?>
-    <div class="screen-width">
-        <h2><a href="<?echo $board_link; ?>"><? echo $title; ?></a></h2>
-        <?
-            if(isset($_GET["post"]))
-                include $_SERVER["DOCUMENT_ROOT"]."/ex_cms/board/view.php";
+    <div id="main-content">
+        <div class="screen-width">
+            <h2><a href="<?echo $board_link; ?>"><? echo $title; ?></a></h2>
+            <?
+                if(isset($_GET["post"]))
+                    include $_SERVER["DOCUMENT_ROOT"]."/ex_cms/board/view.php";
 
-            include $_SERVER["DOCUMENT_ROOT"]."/ex_cms/board/list.php";
-        ?>
+                include $_SERVER["DOCUMENT_ROOT"]."/ex_cms/board/list.php";
+            ?>
+        </div>
     </div>
+    <?insert_parts("footer.html")?>
 </body>
 </html>

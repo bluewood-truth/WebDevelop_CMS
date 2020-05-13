@@ -22,7 +22,7 @@
 </head>
 <body>
     <? insert_parts("big_logo_header.html"); ?>
-    <container>
+    <div id="main-content">
         <div id="login-box" class="white-shadow-box">
             <form id="login-form" method="POST" action="_login_process.php">
                 <div>
@@ -34,7 +34,8 @@
             </form>
             <br>
         </div>
-    </container>
+    </div>
+    <?insert_parts("footer.html")?>
 </body>
 
 <script>

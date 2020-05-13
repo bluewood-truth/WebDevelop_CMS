@@ -1,5 +1,8 @@
 <?php
     $post = sql_get_row(sql_query("SELECT * FROM CMS_post_".$_GET["id"]." WHERE id='".$_GET["post"]."'"));
+    if(is_null($post)){
+        invalid_access("존재하지 않는 글입니다.","http://uraman.m-hosting.kr/ex_cms/board/?id=".$_GET["id"]);
+    }
 
     $result = sql_query("SELECT category_list FROM CMS_board WHERE 'id'='".$_GET['id']."'");
     $tmp = sql_get_row($result);
@@ -12,6 +15,18 @@
 
     $cmt = sql_query("SELECT id FROM CMS_comment_".$_GET["id"]." WHERE post_id='".$_GET["post"]."'");
     $cmt_num = sql_get_num_rows($cmt);
+
+    $editable = false;
+    if(isset($_SESSION["login"])){
+        if($_SESSION["login"] == $post["author_id"] || is_null($post["author_id"])){
+            $editable = true;
+        }
+    }
+    else{
+        if(is_null($post["author_id"])){
+            $editable = true;
+        }
+    }
  ?>
 <article id="post">
     <div id="post-title-container">
@@ -41,19 +56,29 @@
         <? include "comment.php" ?>
     </div>
     <div class="post-bottom-buttons">
-        <button id="post-edit-button" type="button" class="btn-mini bg-gray">수정</button>
-        <button id="post-delete-button" type="button" class="btn-mini bg-gray">삭제</button>
+        <?
+            if($editable){
+                echo '
+                <button id="post-edit-button" type="button" class="btn-mini bg-gray">수정</button>
+                <button id="post-delete-button" type="button" class="btn-mini bg-gray">삭제</button>';
+            }
+        ?>
         <button id="post-write-button" type="button" class="btn-mini bg-orange">글쓰기</button>
     </div>
 </article>
 
 <script>
-    $("#post-write-button")[0].addEventListener("click",function(){
-        location.href="http://uraman.m-hosting.kr/ex_cms/board/write_post/?id=<? echo $_GET["id"]; ?>";
-    });
-    $("#post-edit-button")[0].addEventListener("click",function(){
-        location.href="http://uraman.m-hosting.kr/ex_cms/board/write_post/?id=<? echo $_GET["id"]; ?>&action=edit_post&pid=<?echo $_GET["post"];?>";
-    });
+    <?
+    if($editable){
+        echo '
+        $("#post-write-button")[0].addEventListener("click",function(){
+            location.href="http://uraman.m-hosting.kr/ex_cms/board/write_post/?id=/'.$_GET["id"].'";
+        });
+        $("#post-edit-button")[0].addEventListener("click",function(){
+            location.href="http://uraman.m-hosting.kr/ex_cms/board/password_check/?id='.$_GET["id"].'&action=edit_post&pid='.$_GET["post"].'";
+        });';
+    }
+    ?>
     $("#post-delete-button")[0].addEventListener("click",function(){
         location.href="http://uraman.m-hosting.kr/ex_cms/board/password_check/?id=<? echo $_GET["id"]; ?>&action=delete_post&pid=<?echo $_GET["post"];?>";
     });

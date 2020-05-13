@@ -13,21 +13,24 @@
 </head>
 <body>
     <? insert_parts("big_logo_header.html") ?>
-    <div id="join-container" class="white-shadow-box">
-        <?php
-            if(isset($_GET['page']) == false){
-                invalid_access();
-            }
-            if($_GET['page'] == "agreement"){
-                include '1_agreement.php';
-            } else if ($_GET['page'] == "form"){
-                include '2_form.php';
-            } else if ($_GET['page'] == "joined"){
-                include '3_joined.php';
-            } else{
-                invalid_access();
-            }
-         ?>
+    <div id="main-content">
+        <div id="join-container" class="white-shadow-box">
+            <?php
+                if(isset($_GET['page']) == false){
+                    invalid_access();
+                }
+                if($_GET['page'] == "agreement"){
+                    include '1_agreement.php';
+                } else if ($_GET['page'] == "form"){
+                    include '2_form.php';
+                } else if ($_GET['page'] == "joined"){
+                    include '3_joined.php';
+                } else{
+                    invalid_access();
+                }
+             ?>
+        </div>
     </div>
+    <? insert_parts("footer.html") ?>
 </body>
 </html>
