@@ -20,8 +20,8 @@
     }
     $cmt = sql_get_row($result);
 
-    // 로그인중이고 cmt author_id가 세션과 일치하지 않으면 kick
-    if(isset($_SESSION["login"])){
+    // 로그인중이고 회원댓글일때 cmt author_id가 세션과 일치하지 않으면 kick
+    if(isset($_SESSION["login"]) && !is_null($cmt["author_id"])){
         if($_SESSION["login"] != $cmt["author_id"]){
             kick(3);
         }
@@ -35,6 +35,11 @@
         else {
             $_SESSION["password"] = $_POST["password"];
         }
+    }
+
+    $cmt_nickname = $cmt["guest_name"];
+    if(is_null($cmt_nickname)){
+        $cmt_nickname = $cmt["author_nickname"].member_icon();
     }
 
     $sql = "SELECT name_kor FROM CMS_board WHERE id='".$_GET["id"]."'";
@@ -60,13 +65,7 @@
                 <form action="_process.php?id=<?echo $_GET["id"]?>&cid=<?echo $_GET["cid"]?>" method="post">
                     <div class="comment-write-box">
                         <div class="comment-write-head">
-                            <?
-                                if($nickname = get_login_nickname())
-                                    echo '<div class="cmt-name long">'.$nickname.'</div>';
-                                else{
-                                    echo '<div class="cmt-name long">'.$cmt["guest_name"].'</div>';
-                                }
-                            ?>
+                            <div class="cmt-name long"><?echo $cmt_nickname; ?></div>
                         </div>
                         <div class="comment-write-textarea">
                             <textarea maxlength=512 name="cmt-write-content" rows="3" cols="80" required="required"><?echo str_replace("<br>","\n",$cmt["content"]);?></textarea>

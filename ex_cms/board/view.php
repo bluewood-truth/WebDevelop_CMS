@@ -1,10 +1,10 @@
 <?php
-    $post = sql_get_row(sql_query("SELECT * FROM CMS_post_".$_GET["id"]." WHERE id='".$_GET["post"]."'"));
+    $post = sql_get_row(sql_query("SELECT * FROM CMS_post_".$_GET["id"]." WHERE id='".$_GET["pid"]."'"));
     if(is_null($post)){
         invalid_access("존재하지 않는 글입니다.","http://uraman.m-hosting.kr/ex_cms/board/?id=".$_GET["id"]);
     }
 
-    $result = sql_query("SELECT category_list FROM CMS_board WHERE 'id'='".$_GET['id']."'");
+    $result = sql_query("SELECT category_list FROM CMS_board WHERE 'id'='".$_GET["id"]."'");
     $tmp = sql_get_row($result);
     $is_categorical = is_null($tmp["category_list"]) == false;
 
@@ -13,7 +13,7 @@
         $author = $post["author_nickname"].member_icon();
     }
 
-    $cmt = sql_query("SELECT id FROM CMS_comment_".$_GET["id"]." WHERE post_id='".$_GET["post"]."'");
+    $cmt = sql_query("SELECT id FROM CMS_comment_".$_GET["id"]." WHERE post_id='".$_GET["pid"]."'");
     $cmt_num = sql_get_num_rows($cmt);
 
     $editable = false;
@@ -75,12 +75,13 @@
             location.href="http://uraman.m-hosting.kr/ex_cms/board/write_post/?id=/'.$_GET["id"].'";
         });
         $("#post-edit-button")[0].addEventListener("click",function(){
-            location.href="http://uraman.m-hosting.kr/ex_cms/board/password_check/?id='.$_GET["id"].'&action=edit_post&pid='.$_GET["post"].'";
+            location.href="http://uraman.m-hosting.kr/ex_cms/board/password_check/?id='.$_GET["id"].'&action=edit_post&pid='.$_GET["pid"].'";
         });';
     }
     ?>
     $("#post-delete-button")[0].addEventListener("click",function(){
-        location.href="http://uraman.m-hosting.kr/ex_cms/board/password_check/?id=<? echo $_GET["id"]; ?>&action=delete_post&pid=<?echo $_GET["post"];?>";
+        if(confirm("정말로 삭제하시겠습니까?"))
+            location.href="http://uraman.m-hosting.kr/ex_cms/board/password_check/?id=<? echo $_GET["id"]; ?>&action=delete_post&pid=<?echo $_GET["pid"];?>";
     });
 
 </script>

@@ -272,10 +272,14 @@ article#post{
 .btn-recommend .up{color:red; font-weight:bold}
 .btn-recommend .down{color:blue; font-weight:bold}
 
-.post-bottom-buttons { padding-top:10px; padding-bottom: 20px; text-align: right;}
+.post-bottom-buttons { padding-top:10px; text-align: right;}
 .btn-mini{ font-weight: bold; width:90px; height:40px; color:white; border:none; border-radius: 3px;}
 
 
+#page-buttons{ text-align: center;}
+#page-buttons a{font-size:14px; margin: 0 5px;}
+#page-buttons a:hover{text-decoration: underline;}
+#page-buttons a.selected {font-weight:bold;text-decoration: underline;}
 
 #password-box { padding:30px 20px; border:3px #555 solid; margin:0 auto; width:300px; text-align: center;}
 #password-box h3{margin:5px;}

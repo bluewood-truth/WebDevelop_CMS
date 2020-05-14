@@ -6,7 +6,7 @@
         invalid_access();
     }
 
-    $_SESSION["prev_page"] = "http://uraman.m-hosting.kr/ex_cms/board/password_check/?id=".$_GET["id"]."&post=".$_GET["pid"];
+    $_SESSION["prev_page"] = "http://uraman.m-hosting.kr/ex_cms/board/?id=".$_GET["id"]."&pid=".$_GET["pid"];
 
     $process = "";
     switch($_GET["action"]){
@@ -75,7 +75,7 @@
                 <form action="<? echo $process ?>" method="post">
                     <h3>비밀번호를 입력하세요.</h3>
                     <input id="pw" minlength=2 maxlength=16 required="required" type="password" name="password" value="">
-                    <input id="btn-ok" type="submit" value="확인">
+                    <input id="btn-ok" type="submit" value="확인" <?if($_GET["action"] == "delete_post") echo 'onsubmit="return confirm('."'정말로 삭제하시겠습니까?'".')'?>>
                 </form>
             </div>
         </div>

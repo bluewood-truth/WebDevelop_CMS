@@ -105,7 +105,7 @@
         }
         // 로그인했고 비회원 글일 경우
         else if(isset($_SESSION["login"]) == true && is_null($row['author_id'])){
-            
+
         }
         // 로그인 안했을 경우
         else {
@@ -124,7 +124,7 @@
         sql_query($sql);
     }
 
-    header("Location:http://uraman.m-hosting.kr/ex_cms/board/?id=".$_GET["id"]."&post=".$pid);
+    header("Location:http://uraman.m-hosting.kr/ex_cms/board/?id=".$_GET["id"]."&pid=".$pid);
     unset($_SESSION["action"]);
     exit;
  ?>

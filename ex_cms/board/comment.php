@@ -1,5 +1,5 @@
 <?php
-    $sql = "SELECT * FROM CMS_comment_".$_GET["id"]." WHERE post_id=".$_GET["post"];
+    $sql = "SELECT * FROM CMS_comment_".$_GET["id"]." WHERE post_id=".$_GET["pid"];
     $comments = sql_query($sql);
  ?>
 
@@ -67,7 +67,7 @@
             <input type="submit" name="" value="등록">
         </div>
     </div>
-    <div class="hidden-data" id=<?echo $_GET["id"]."/".$_GET["post"]?>></div>
+    <div class="hidden-data" id=<?echo $_GET["id"]."/".$_GET["pid"]?>></div>
 </form>
 
 <script>
@@ -79,7 +79,7 @@
 
     function comment_password_check(btn){
         var info = btn.name.split("/");
-        var link = "http://uraman.m-hosting.kr/ex_cms/board/password_check/?id="+info[0]+"&cid="+info[1]+"&action="+info[2]+"&pid=<?$_GET["post"]?>";
+        var link = "http://uraman.m-hosting.kr/ex_cms/board/password_check/?id="+info[0]+"&cid="+info[1]+"&action="+info[2]+"&pid=<?echo $_GET["pid"]?>";
 
         if(info[3] == "member" && info[2] == "delete_cmt"){
             if(confirm("댓글을 삭제하시겠습니까?"))
