@@ -101,7 +101,7 @@
                     </p>
                     <p class="post-write-title">
                         <? echo $category_list; ?>
-                        <input type="text" name="title" value="<?echo $title;?>" placeholder="제목" required="required">
+                        <input type="text" name="title" maxlength="40" value="<?echo $title;?>" placeholder="제목" required="required">
                     </p>
                     <textarea class="texteditor" name="ir1" id="ir1" rows="10" cols="100"><?echo $content;?></textarea>
                     <div class="post-bottom-buttons">

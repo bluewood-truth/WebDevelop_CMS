@@ -14,6 +14,11 @@
         kick(0);
     }
 
+    // 제목 글자수 안맞으면 kick
+    if(strlen_check($_POST["title"],1,40) == false){
+        kick(01);
+    }
+
     $pid = "";
 
     if($_SESSION["action"] == "write_post"){

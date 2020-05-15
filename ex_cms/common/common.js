@@ -67,3 +67,11 @@ function is_logined(){
     );
     return result;
 }
+
+// 제목 등이 너무 길때 자르는 기능
+function text_cutting(title, maxlength){
+    if(title.length > maxlength){
+        title = title.substr(0,maxlength) + "...";
+    }
+    return title;
+}

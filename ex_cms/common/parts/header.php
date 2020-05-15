@@ -23,7 +23,7 @@
                 $board = sql_query("SELECT * FROM CMS_board WHERE 'group_id' = ".$group_row["id"]." ORDER BY order_sub");
                 echo '
                 <li>
-                    <a href="#">'.$group_row["name_kor"].'</a>
+                    <a class="nav-menu" href="">'.$group_row["name_kor"].'</a>
                     <ul class="nav-sub">';
                     while($board_row = sql_get_row($board)){
                         if(is_null($board_row["order_sub"]))
@@ -36,8 +36,16 @@
             }
         ?>
         </ul>
-        <input type="button" class="nav-btn" style="display:<? display_style('none','block') ?>" value="로그인" onclick="location.href='http://uraman.m-hosting.kr/ex_cms/login'">
-        <input type="button" class="nav-btn" style="display:<? display_style('block','none') ?>" value="로그아웃" onclick="logout();">
-        <span class="nav-msg" style="display:<? display_style('block','none') ?>"><b><? echo get_login_nickname() ?></b>님, 환영합니다.</span>
+        <div id="nav-userinfo">
+            <span class="nav-msg" style="display:<? display_style('block','none') ?>"><b><? echo get_login_nickname() ?></b>님, 환영합니다.</span>
+            <input type="button" class="nav-btn" style="display:<? display_style('block','none') ?>" value="마이페이지" onclick="location.href='http://uraman.m-hosting.kr/ex_cms/mypage'">
+            <input type="button" class="nav-btn" style="display:<? display_style('block','none') ?>" value="로그아웃" onclick="logout();">
+            <input type="button" class="nav-btn" style="display:<? display_style('none','block') ?>" value="로그인" onclick="location.href='http://uraman.m-hosting.kr/ex_cms/login'">
+        </div>
     </div>
+    <script>
+        for(var i = 0; i < $(".nav-menu").length; i++){
+            $(".nav-menu")[i].href = $(".nav-menu")[i].closest("li").getElementsByTagName("li")[0].childNodes[0].href;
+        }
+    </script>
 </header>
