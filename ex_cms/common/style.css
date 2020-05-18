@@ -101,6 +101,10 @@ p.article-text{
     visibility:hidden;
 }
 
+.invisible{
+    display:none;
+}
+
 /* ===============================================
 로그인페이지
 =============================================== */
@@ -228,7 +232,7 @@ table.board_list tbody{
 
 }
 
-.board_num{ width:60px;}
+.board_num{ width:50px;}
 .board_cat{width:80px;}
 tbody .board_cat{font-weight: bold;}
 .board_title{text-align: left; padding:0 10px;}
@@ -238,8 +242,8 @@ tbody .board_cat{font-weight: bold;}
 .board-post-cmt {margin-left:3px; font-size:11px; font-weight:bold;}
 .board_author{width:140px;}
 .board_date{width:80px;}
-.board_views{width:60px;}
-.board_recommends{width:60px;}
+.board_views{width:40px;}
+.board_recommends{width:40px;}
 
 
 article#post{
@@ -524,4 +528,93 @@ footer#footer{
 
 .board-display li a:hover{
     text-decoration: underline;
+}
+
+
+
+/* ===============================================
+탭메뉴
+=============================================== */
+
+ul#tab-menu{
+    box-sizing: border-box;
+    height:40px;
+    border-bottom:1px solid #aaa;
+    margin-bottom:0;
+}
+#tab-menu>li{
+    float:left; margin-right:5px;
+    width:120px; height:40px;
+    background-color: #cfcfcf;
+    border: 1px solid #aaa;
+    border-bottom:1px solid #aaa;
+    box-sizing: border-box;
+}
+#tab-menu>li a{
+    display:block; margin:0px;
+    height:100%; width:100%;
+    font-size:14px;
+    text-align: center;
+    line-height: 40px;
+    color:#333;
+}
+#tab-menu>li.selected{
+    background-color: white;
+    border-bottom:1px solid white;
+}
+#tab-menu>li.selected a{
+    color:black;
+    font-weight:bold;
+}
+
+#tab-body{
+    box-sizing: border-box;
+    border: 1px solid #aaa;
+    border-top:none;
+    background-color: white;
+    padding:10px;
+}
+
+/* ===============================================
+마이페이지
+=============================================== */
+#mypage-info table{
+    margin:30px auto;
+    margin-bottom:5px;
+    border-top:2px solid #aaa;
+    border-bottom:2px solid #aaa;
+    border-collapse: collapse;
+}
+
+#mypage-info td{
+    font-size:14px;
+    height:40px;
+    line-height: 40px;
+    text-align: center;
+    border-bottom: 1px solid #aaa;
+    align-items: center;
+    vertical-align: middle;
+}
+
+#mypage-info td.label{
+    font-weight:bold;
+    width:200px;
+}
+
+#mypage-info td.value{
+    width:400px;
+}
+
+#modify-nickname input{
+    height:30px;
+    box-sizing: border-box;
+    margin:0;
+}
+#modify-nickname input.text{
+    font-size:14px;
+    width:130px;
+    padding-left:5px
+}
+#mypage-info #buttons{
+    text-align: right;
 }

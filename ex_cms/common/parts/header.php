@@ -38,7 +38,7 @@
         </ul>
         <div id="nav-userinfo">
             <span class="nav-msg" style="display:<? display_style('block','none') ?>"><b><? echo get_login_nickname() ?></b>님, 환영합니다.</span>
-            <input type="button" class="nav-btn" style="display:<? display_style('block','none') ?>" value="마이페이지" onclick="location.href='http://uraman.m-hosting.kr/ex_cms/mypage'">
+            <input type="button" class="nav-btn" style="display:<? display_style('block','none') ?>" value="마이페이지" onclick="location.href='http://uraman.m-hosting.kr/ex_cms/mypage/?tab=info'">
             <input type="button" class="nav-btn" style="display:<? display_style('block','none') ?>" value="로그아웃" onclick="logout();">
             <input type="button" class="nav-btn" style="display:<? display_style('none','block') ?>" value="로그인" onclick="location.href='http://uraman.m-hosting.kr/ex_cms/login'">
         </div>
