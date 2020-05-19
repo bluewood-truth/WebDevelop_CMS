@@ -5,10 +5,7 @@
     $post_by_page = 10;
     $page_interval = 10;
 
-    $total_post = sql_get_num_rows(sql_query("SELECT * from CMS_post_".$_GET['id']));
-    $total_page = intval(($total_post-1) / $post_by_page) + 1;
-
-    $sql = "SELECT * from CMS_post_".$_GET['id'];
+    $sql = "SELECT id,category,title,author_nickname,guest_name,write_date,views,recommends from CMS_post_".$_GET['id'];
     if(isset($_GET["search_type"]) && isset($_GET["keyword"])){
         switch($_GET["search_type"]){
             case "title":

@@ -24,10 +24,10 @@
 
     // 유효성 검사
     if(preg_match($check_id,$id) == False || preg_match($check_pw,$pw) == False || preg_match($check_email,$email) == False){
-        //kick(1);
-        var_dump(preg_match($check_id,$id));
-        var_dump(preg_match($check_pw,$pw));
-        var_dump(preg_match($check_email,$email));
+        kick(1);
+        // var_dump(preg_match($check_id,$id));
+        // var_dump(preg_match($check_pw,$pw));
+        // var_dump(preg_match($check_email,$email));
 
         exit;
     }

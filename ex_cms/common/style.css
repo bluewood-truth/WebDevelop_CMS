@@ -586,7 +586,7 @@ ul#tab-menu{
     border-collapse: collapse;
 }
 
-#mypage-info td{
+#mypage-info tbody td{
     font-size:14px;
     height:40px;
     line-height: 40px;
@@ -602,19 +602,34 @@ ul#tab-menu{
 }
 
 #mypage-info td.value{
-    width:400px;
+    width:300px;
 }
 
-#modify-nickname input{
+#mypage-info td.button{
+    width:100px;
+}
+
+#mypage-info form{
+
+}
+
+#mypage-info form input{
     height:30px;
     box-sizing: border-box;
     margin:0;
 }
-#modify-nickname input.text{
+#mypage-info form input.text{
     font-size:14px;
-    width:130px;
     padding-left:5px
 }
+#modify-nickname input.text{
+    width:130px;
+}
+#modify-email input.text{
+    width:200px;
+}
+
 #mypage-info #buttons{
     text-align: right;
+    margin-bottom:30px;
 }
