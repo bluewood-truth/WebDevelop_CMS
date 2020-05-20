@@ -28,7 +28,7 @@
 <body>
     <?insert_parts("header.php")?>
     <div id="main-content">
-        <div class="screen-width" style="width:720px">
+        <div class="screen-width" style="width:800px;">
             <h2>마이페이지</h2>
             <ul id="tab-menu">
                 <li <?tab_selected("info")?>><a href="http://uraman.m-hosting.kr/ex_cms/mypage/?tab=info">기본정보</a></li>

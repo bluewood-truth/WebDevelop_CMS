@@ -20,20 +20,23 @@
     }
     $cmt = sql_get_row($result);
 
-    // 로그인중이고 회원댓글일때 cmt author_id가 세션과 일치하지 않으면 kick
-    if(isset($_SESSION["login"]) && !is_null($cmt["author_id"])){
-        if($_SESSION["login"] != $cmt["author_id"]){
-            kick(3);
+    // 이 밑으로는 관리자가 아닐때만 체크
+    if(access_check("admin") == false){
+        // 로그인중이고 회원댓글일때 cmt author_id가 세션과 일치하지 않으면 kick
+        if(isset($_SESSION["login"]) && !is_null($cmt["author_id"])){
+            if($_SESSION["login"] != $cmt["author_id"]){
+                kick(3);
+            }
         }
-    }
-    // 로그인 중이 아니고 패스워드가 cmt guest_password와 일치하지 않으면 뒤로가기
-    // 일치하면 패스워드를 세션에 저장
-    else{
-        if(sha1($_POST["password"]) != $cmt["guest_password"]){
-            invalid_access("비밀번호가 일치하지 않습니다.",$_SESSION["prev_page"]);
-        }
-        else {
-            $_SESSION["password"] = $_POST["password"];
+        // 로그인 중이 아니고 패스워드가 cmt guest_password와 일치하지 않으면 뒤로가기
+        // 일치하면 패스워드를 세션에 저장
+        else{
+            if(sha1($_POST["password"]) != $cmt["guest_password"]){
+                invalid_access("비밀번호가 일치하지 않습니다.",$_SESSION["prev_page"]);
+            }
+            else {
+                $_SESSION["password"] = $_POST["password"];
+            }
         }
     }
 

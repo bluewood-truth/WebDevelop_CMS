@@ -26,7 +26,7 @@
 <style>
     #mypage-posts{padding:30px 0;}
     #mypage-posts table{font-size:13px; width:100%; border-collapse: collapse;
-        border-top:2px solid #aaa; border-bottom:2px solid #aaa; }
+        border-top:2px solid #aaa; border-bottom:2px solid #aaa; margin-top:10px}
     #mypage-posts tr{height:30px}
     #mypage-posts thead {border-bottom:2px solid #aaa;}
     #mypage-posts tbody tr{border-bottom:1px solid #aaa;}
@@ -37,9 +37,12 @@
     #mypage-posts .views{width:40px; text-align: center;}
     #mypage-posts .recommends{width:40px; text-align: center;}
     #mypage-posts #buttons{text-align: right; margin:5px;}
+    #mypage-posts .msg{font-weight: bold; font-size:13px;}
 </style>
 
 <div id="mypage-posts">
+<span class="msg">작성 게시글 수: <?echo $total_post?></span>
+<form id="delete_post_form" method="POST" action="process/_delete_process.php">
 <table>
     <thead>
         <tr>
@@ -65,7 +68,7 @@
             }
             echo "
             <tr>
-                <td class='chkbox'><input type='checkbox' class='checkbox' id='".$row["bid"]."_".$row["id"]."'></td>
+                <td class='chkbox'><input type='checkbox' class='checkbox' onchange='check(this)' name='checked[]' value='".$row["bid"]."/".$row["id"]."'></td>
                 <td class='board'>".$row["name_kor"]."</td>
                 <td class='title'><a href='http://uraman.m-hosting.kr/ex_cms/board/?id=".$row["bid"]."&pid=".$row["id"]."'>".$cat.$row["title"]."</a></td>
                 <td class='date'>".$date."</td>
@@ -78,9 +81,11 @@
     </tbody>
 </table>
 <div id="buttons">
-    <button id="select_delete" type="button" class="btn-mini bg-gray">선택 삭제</button>
-    <button id="all_delete" type="button" class="btn-mini bg-gray">전체 삭제</button>
+    <input id="select_delete" style="font-size:13.333px" type="submit" class="btn-mini bg-gray" name="submit_button" value="선택 삭제">
+    <input id="all_delete" style="font-size:13.333px" type="submit" class="btn-mini bg-gray" onclick="return confirm('정말로 모든 게시글을 삭제하시겠습니까?')" name="submit_button" value="전체 삭제">
 </div>
+<input type="hidden" name="type" value="post">
+</form>
 <div id="page-buttons">
     <?
         $exist_prev_page = false;
@@ -128,14 +133,39 @@
         }
     }
 
-    $("#buttons #select_delete")[0].addEventListener("click",function(){
-        if(confirm("삭제하시겠습니까?")){
-            var post_data = [];
-            for(i = 0; i < chkbox.length; i++){
-                if(chkbox[i].id == "all")
-                    continue;
-                if(chkbox[i].checked)
-                post_data.push(chkbox[i].id);
+    function check(box){
+        var all_check = true;
+        for(i = 0; i < chkbox.length; i++){
+            if(chkbox[i].id == "all")
+                continue;
+            if(chkbox[i].checked  == false){
+                all_check = false;
+                break;
+            }
+        }
+        $("input#all")[0].checked = all_check;
+    }
+
+    $("#select_delete")[0].addEventListener("click",function(event){
+        var all_check = false;
+        for(i = 0; i < chkbox.length; i++){
+            if(chkbox[i].id == "all")
+                continue;
+            if(chkbox[i].checked  == true){
+                all_check = true;
+                break;
+            }
+        }
+        if(all_check == false){
+            alert("선택된 게시글이 없습니다.")
+            event.preventDefault();
+        }
+        else{
+            if(confirm("선택한 게시글을 삭제하시겠습니까?")){
+                $("#delete_post_form")[0].submit();
+            }
+            else{
+                event.preventDefault();
             }
         }
     });

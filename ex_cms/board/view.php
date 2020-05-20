@@ -10,7 +10,7 @@
 
     $author = $post["guest_name"];
     if(is_null($author)){
-        $author = $post["author_nickname"].member_icon();
+        $author = $post["author_nickname"].member_icon(get_authority($post["author_id"]));
     }
 
     $cmt = sql_query("SELECT id FROM CMS_comment_".$_GET["id"]." WHERE post_id='".$_GET["pid"]."'");
@@ -26,6 +26,9 @@
         if(is_null($post["author_id"])){
             $editable = true;
         }
+    }
+    if(access_check("admin")){
+        $editable = true;
     }
  ?>
 <article id="post">
@@ -71,17 +74,17 @@
     <?
     if($editable){
         echo '
-        $("#post-write-button")[0].addEventListener("click",function(){
-            location.href="http://uraman.m-hosting.kr/ex_cms/board/write_post/?id=/'.$_GET["id"].'";
+        $("#post-delete-button")[0].addEventListener("click",function(){
+            if(confirm("정말로 삭제하시겠습니까?"))
+                location.href="http://uraman.m-hosting.kr/ex_cms/board/password_check/?id='.$_GET["id"].'&action=delete_post&pid='.$_GET["pid"].'";
         });
         $("#post-edit-button")[0].addEventListener("click",function(){
             location.href="http://uraman.m-hosting.kr/ex_cms/board/password_check/?id='.$_GET["id"].'&action=edit_post&pid='.$_GET["pid"].'";
         });';
     }
     ?>
-    $("#post-delete-button")[0].addEventListener("click",function(){
-        if(confirm("정말로 삭제하시겠습니까?"))
-            location.href="http://uraman.m-hosting.kr/ex_cms/board/password_check/?id=<? echo $_GET["id"]; ?>&action=delete_post&pid=<?echo $_GET["pid"];?>";
+    $("#post-write-button")[0].addEventListener("click",function(){
+        location.href="http://uraman.m-hosting.kr/ex_cms/board/write_post/?id=<?echo $_GET["id"]?>";
     });
 
 </script>

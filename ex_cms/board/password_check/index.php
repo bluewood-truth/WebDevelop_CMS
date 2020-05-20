@@ -28,8 +28,17 @@
             break;
     }
 
+    $admin_logined = access_check("admin");
+
     // SESSION체크하고 해당 작성자id와 일치하면 바로 프로세스로 넘김
     if(isset($_SESSION['login'])){
+
+        // 관리자면 그냥 넘김
+        if($admin_logined){
+            header("Location:".$process);
+            exit;
+        }
+
         // 댓글일 경우
         if(isset($_GET["cid"])){
             $sql = "SELECT author_id FROM CMS_comment_".$_GET["id"]." WHERE id=".$_GET["cid"];

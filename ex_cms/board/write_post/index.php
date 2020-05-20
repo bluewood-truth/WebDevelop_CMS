@@ -22,23 +22,28 @@
         if(sql_get_num_rows($result) == 0){
             invalid_access("존재하지 않는 글입니다.", $_SESSION["prev_page"]);
         }
+
         $post = sql_get_row($result);
 
-        // 로그인중이고 cmt author_id가 세션과 일치하지 않으면 kick
-        if(isset($_SESSION["login"])){
-            if($_SESSION["login"] != $post["author_id"] && !is_null($post["author_id"])){
-                kick(3);
+        // 이 밑으로는 관리자가 아닐 때만 체크
+        if(access_check("admin") == false){
+            // 로그인중이고 cmt author_id가 세션과 일치하지 않으면 kick
+            if(isset($_SESSION["login"])){
+                if($_SESSION["login"] != $post["author_id"] && !is_null($post["author_id"])){
+                    kick(3);
+                }
             }
+            // 로그인 중이 아니고 패스워드가 cmt guest_password와 일치하지 않으면 뒤로가기
+            // 일치하면 패스워드를 세션에 저장
+            else{
+                if(sha1($_POST["password"]) != $post["guest_password"]){
+                    invalid_access("비밀번호가 일치하지 않습니다.",$_SESSION["prev_page"]);
+                }
+                else {
+                    $_SESSION["password"] = $_POST["password"];
+                }
         }
-        // 로그인 중이 아니고 패스워드가 cmt guest_password와 일치하지 않으면 뒤로가기
-        // 일치하면 패스워드를 세션에 저장
-        else{
-            if(sha1($_POST["password"]) != $post["guest_password"]){
-                invalid_access("비밀번호가 일치하지 않습니다.",$_SESSION["prev_page"]);
-            }
-            else {
-                $_SESSION["password"] = $_POST["password"];
-            }
+
         }
         $_SESSION["action"] = "edit_post";
         $is_edit = true;

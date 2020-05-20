@@ -20,24 +20,29 @@
         invalid_access("존재하지 않는 댓글입니다.",$_SESSION["prev_page"]);
 
     $row = sql_get_row($result);
+    
+    // 이 밑으로는 관리자가 아닐 때만 체크
+    if(access_check("admin") == false){
 
-    // 로그인했고 회원 댓글일 경우
-    if(isset($_SESSION["login"]) == true && !is_null($row['author_id'])){
-        // 자기 댓글이 아니면 kick
-        if($row['author_id'] != $_SESSION["login"]){
-            kick(3);
-        }
-    }
-    // 로그인 안했거나 게스트로 쓴 댓글인 경우
-    else {
-        if(!isset($_SESSION["password"])){
-            kick(4);
-        }
-        $password = sha1($_SESSION["password"]);
-        unset($_SESSION["password"]);
 
-        if($row['guest_password'] != $password){
-            kick(5);
+        // 로그인했고 회원 댓글일 경우
+        if(isset($_SESSION["login"]) == true && !is_null($row['author_id'])){
+            // 자기 댓글이 아니면 kick
+            if($row['author_id'] != $_SESSION["login"]){
+                kick(3);
+            }
+        }
+        // 로그인 안했거나 게스트로 쓴 댓글인 경우
+        else {
+            if(!isset($_SESSION["password"])){
+                kick(4);
+            }
+            $password = sha1($_SESSION["password"]);
+            unset($_SESSION["password"]);
+
+            if($row['guest_password'] != $password){
+                kick(5);
+            }
         }
     }
 

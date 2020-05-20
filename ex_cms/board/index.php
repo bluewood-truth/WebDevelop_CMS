@@ -6,8 +6,12 @@
         invalid_access();
     }
 
-    $sql = "SELECT name_kor FROM CMS_board WHERE id='".$_GET["id"]."'";
+    $sql = "SELECT name_kor,access FROM CMS_board WHERE id='".$_GET["id"]."'";
     $result = sql_get_row(sql_query($sql));
+
+    if(!access_check($result["access"]))
+        invalid_access(authority_kor($result["access"])."만 접근 가능한 게시판입니다.");
+
     $title = $result['name_kor'];
     $board_link = "http://uraman.m-hosting.kr/ex_cms/board/?id=".$_GET["id"];
 
@@ -26,6 +30,7 @@
  	<meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="http://uraman.m-hosting.kr/ex_cms/common/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/ex_cms/common/common.js"></script>
 </head>
 <body>
     <?insert_parts("header.php")?>

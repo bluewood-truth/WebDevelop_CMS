@@ -41,7 +41,7 @@
 </body>
 <script>
     for(var i = 0; i < $(".board-display li").length; i++){
-        $(".board-display li")[i].innerText = text_cutting($(".board-display li")[i].innerText, 24);
+        $(".board-display li a")[i].innerText = text_cutting($(".board-display li")[i].innerText, 24);
     }
 </script>
 </html>

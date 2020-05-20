@@ -5,7 +5,7 @@
     $post_by_page = 10;
     $page_interval = 10;
 
-    $sql = "SELECT id,category,title,author_nickname,guest_name,write_date,views,recommends from CMS_post_".$_GET['id'];
+    $sql = "SELECT id,category,title,author_id,author_nickname,guest_name,write_date,views,recommends from CMS_post_".$_GET['id'];
     if(isset($_GET["search_type"]) && isset($_GET["keyword"])){
         switch($_GET["search_type"]){
             case "title":
@@ -35,11 +35,18 @@
     $result = sql_query("SELECT * FROM CMS_board WHERE id='".$_GET['id']."'");
     $tmp = sql_get_row($result);
     $is_categorical = is_null($tmp["category_list"]) == false;
+
+    $admin_logined = access_check("admin");
  ?>
 
+<form method="POST">
 <table class="board_list">
     <thead>
         <tr>
+            <?
+            if($admin_logined)
+                echo '<th class="chkbox"><input type="checkbox" class="checkbox" onchange="check_all(this)" id="all"></th>';
+            ?>
             <th class="board_num">번호</th>
             <? if($is_categorical) echo '<th class="board_cat">분류</th>';?>
             <th class="board_title">제목</th>
@@ -54,7 +61,7 @@
             while($row = sql_get_row($table)){
                 $author = $row["guest_name"];
                 if(is_null($author)){
-                    $author = $row["author_nickname"].member_icon();
+                    $author = $row["author_nickname"].member_icon(get_authority($row["author_id"]));
                 }
 
                 $date_tmp = date_create($row["write_date"]);
@@ -71,25 +78,28 @@
                 $request["pid"] = $row["id"];
                 $url = $url.http_build_query($request);
 
-                echo '
-                <tr>
-                    <td class="board_num">'.$row["id"].'</td>';
+                echo '<tr>';
+                if($admin_logined) echo "<td class='chkbox'><input type='checkbox' class='checkbox' onchange='check(this)' name='checked[]' value='".$row["id"]."/".$_GET["id"]."'></td>";
+                echo '<td class="board_num">'.$row["id"].'</td>';
                 if($is_categorical) echo '<td class="board_cat">'.$row["category"].'</td>';
-                echo '<td class="board_title"><a href="'.$url.'">'.$row["title"].'</a><span class="board-post-cmt">'.$cmt_num.'</span></td>
-                    <td class="board_author">'.$author.'</td>
-                    <td class="board_date">'.$date.'</td>
-                    <td class="board_views">'.$row["views"].'</td>
-                    <td class="board_recommends">'.$row["recommends"].'</td>
-                </tr>
-                ';
+                echo '<td class="board_title"><a href="'.$url.'">'.$row["title"].'</a><span class="board-post-cmt">'.$cmt_num.'</span></td>';
+                echo '<td class="board_author">'.$author.'</td>';
+                echo '<td class="board_date">'.$date.'</td>';
+                echo '<td class="board_views">'.$row["views"].'</td>';
+                echo '<td class="board_recommends">'.$row["recommends"].'</td>';
+                echo '</tr>';
 
             }
         ?>
     </tbody>
 </table>
 <div class="post-bottom-buttons">
+    <?
+    if($admin_logined)  echo '<input id="select_delete" style="float:left; font-size:13.33333px" type="submit" class="btn-mini bg-gray" name="submit_button" value="선택 삭제">';
+    ?>
     <button id="post-write-button-bottom-list" type="button" class="btn-mini bg-orange">글쓰기</button>
 </div>
+</form>
 <div id="page-buttons">
     <?
         $exist_prev_page = false;
@@ -149,4 +159,54 @@
     for(var i = 0; i < $(".board_title a").length; i++){
         $(".board_title a")[i].innerText = text_cutting($(".board_title a")[i].innerText, 32);
     }
+
+    <?
+    if($admin_logined){
+        echo '
+        chkbox = $("input.checkbox");
+
+        function check_all(box){
+            for(i = 0; i < chkbox.length; i++){
+                chkbox[i].checked = box.checked;
+            }
+        }
+
+        function check(box){
+            var all_check = true;
+            for(i = 0; i < chkbox.length; i++){
+                if(chkbox[i].id == "all")
+                    continue;
+                if(chkbox[i].checked  == false){
+                    all_check = false;
+                    break;
+                }
+            }
+            $("input#all")[0].checked = all_check;
+        }
+
+        $("#select_delete")[0].addEventListener("click",function(event){
+            var all_check = false;
+            for(i = 0; i < chkbox.length; i++){
+                if(chkbox[i].id == "all")
+                    continue;
+                if(chkbox[i].checked  == true){
+                    all_check = true;
+                    break;
+                }
+            }
+            if(all_check == false){
+                alert("선택된 게시글이 없습니다.")
+                event.preventDefault();
+            }
+            else{
+                if(confirm("선택한 게시글을 삭제하시겠습니까?")){
+                    $("#delete_cmt_form")[0].submit();
+                }
+                else{
+                    event.preventDefault();
+                }
+            }
+        });';
+    }
+    ?>
 </script>

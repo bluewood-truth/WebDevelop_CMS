@@ -101,27 +101,30 @@
 
         $row = sql_get_row($result);
 
-        // 로그인했고 회원 글일 경우
-        if(isset($_SESSION["login"]) == true && !is_null($row['author_id'])){
-            // 자기 글이 아니면 kick
-            if($row['author_id'] != $_SESSION["login"]){
-                kick(23);
+        // 이 밑으로는 관리자가 아닐 때만 체크
+        if(access_check("admin") == false){
+            // 로그인했고 회원 글일 경우
+            if(isset($_SESSION["login"]) == true && !is_null($row['author_id'])){
+                // 자기 글이 아니면 kick
+                if($row['author_id'] != $_SESSION["login"]){
+                    kick(23);
+                }
             }
-        }
-        // 로그인했고 비회원 글일 경우
-        else if(isset($_SESSION["login"]) == true && is_null($row['author_id'])){
+            // 로그인했고 비회원 글일 경우
+            else if(isset($_SESSION["login"]) == true && is_null($row['author_id'])){
 
-        }
-        // 로그인 안했을 경우
-        else {
-            if(!isset($_SESSION["password"])){
-                kick(24);
             }
-            $password = sha1($_SESSION["password"]);
-            unset($_SESSION["password"]);
+            // 로그인 안했을 경우
+            else {
+                if(!isset($_SESSION["password"])){
+                    kick(24);
+                }
+                $password = sha1($_SESSION["password"]);
+                unset($_SESSION["password"]);
 
-            if($row['guest_password'] != $password){
-                kick(25);
+                if($row['guest_password'] != $password){
+                    kick(25);
+                }
             }
         }
 

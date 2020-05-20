@@ -30,16 +30,6 @@ html, body {
     margin:40px 0px;
 }
 
-span.member-icon{
-    font-size:10px;
-    color:white;
-    background-color: #ff7530;
-    border-radius: 3px;
-    padding:2px 3px;
-    margin:0 2px;
-    letter-spacing:-1px;
-}
-
 .text-stroke {
     text-shadow:
     -1px -1px 0 #ffffff,
@@ -232,6 +222,7 @@ table.board_list tbody{
 
 }
 
+table.board_list .chkbox{width:40px}
 .board_num{ width:50px;}
 .board_cat{width:80px;}
 tbody .board_cat{font-weight: bold;}
@@ -572,7 +563,7 @@ ul#tab-menu{
     border: 1px solid #aaa;
     border-top:none;
     background-color: white;
-    padding:10px;
+    padding:10px 30px;
 }
 
 /* ===============================================
