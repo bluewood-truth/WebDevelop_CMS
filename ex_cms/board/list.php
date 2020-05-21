@@ -29,7 +29,7 @@
     $total_post = sql_get_num_rows(sql_query($sql));
     $total_page = intval(($total_post-1) / $post_by_page) + 1;
 
-    $sql = $sql." ORDER BY id DESC LIMIT ".(($page-1) * $post_by_page).",".$post_by_page;
+    $sql = $sql." ORDER BY write_date DESC LIMIT ".(($page-1) * $post_by_page).",".$post_by_page;
     $table = sql_query($sql);
 
     $result = sql_query("SELECT * FROM CMS_board WHERE id='".$_GET['id']."'");
@@ -37,9 +37,12 @@
     $is_categorical = is_null($tmp["category_list"]) == false;
 
     $admin_logined = access_check("admin");
+
+    $id = $_GET["id"];
+    $_SESSION["board_id"] = $_GET["id"];
  ?>
 
-<form method="POST">
+<form method="POST" style="margin-bottom:5px" action="_admin_post_action_process.php">
 <table class="board_list">
     <thead>
         <tr>
@@ -79,7 +82,7 @@
                 $url = $url.http_build_query($request);
 
                 echo '<tr>';
-                if($admin_logined) echo "<td class='chkbox'><input type='checkbox' class='checkbox' onchange='check(this)' name='checked[]' value='".$row["id"]."/".$_GET["id"]."'></td>";
+                if($admin_logined) echo "<td class='chkbox'><input type='checkbox' class='checkbox' onchange='check(this)' name='checked[]' value='".$row["id"]."'></td>";
                 echo '<td class="board_num">'.$row["id"].'</td>';
                 if($is_categorical) echo '<td class="board_cat">'.$row["category"].'</td>';
                 echo '<td class="board_title"><a href="'.$url.'">'.$row["title"].'</a><span class="board-post-cmt">'.$cmt_num.'</span></td>';
@@ -93,10 +96,38 @@
         ?>
     </tbody>
 </table>
+<style>
+    .move-board-select{display:inline-block;background-color: #555; padding:5px}
+    .move-board-select select{ height:30px}
+    .move-board-select input{ height:30px}
+</style>
 <div class="post-bottom-buttons">
+    <div style="float:left">
     <?
-    if($admin_logined)  echo '<input id="select_delete" style="float:left; font-size:13.33333px" type="submit" class="btn-mini bg-gray" name="submit_button" value="선택 삭제">';
+    if($admin_logined){
+        echo '<input id="select_delete" style="font-size:13.33333px" type="submit" class="btn-mini bg-gray" name="submit_button" value="선택 삭제">';
+        echo '<input id="select_move" style="font-size:13.33333px; margin-left:5px;" type="button" class="btn-mini bg-gray"value="선택 이동">';
+    }
     ?>
+    <div id="move_board" class="invisible">
+        <select id="boards" name="boards" onchange="update_category(this.value)">
+            <?
+                $sql = "SELECT id,name_kor,category_list FROM CMS_board";
+                $result = sql_query($sql);
+                $category;
+                while($row = sql_get_row($result)){
+                    if($row["id"] == $id)
+                        continue;
+                    echo "<option value='".$row["id"]."'>".$row["name_kor"]."</option>";
+                    $category[$row["id"]] = $row["category_list"];
+                }
+            ?>
+        </select>
+        <select id="cat" name="categories"></select>
+        <input type="submit" name="submit_button" value="확인">
+        <input type="button" value="취소" onclick="this.closest('div.move-board-select').classList.replace('move-board-select','invisible')">
+    </div>
+</div>
     <button id="post-write-button-bottom-list" type="button" class="btn-mini bg-orange">글쓰기</button>
 </div>
 </form>
@@ -152,6 +183,7 @@
     </form>
 </div>
 <script>
+
     $("#post-write-button-bottom-list")[0].addEventListener("click",function(){
         location.href="http://uraman.m-hosting.kr/ex_cms/board/write_post/?id=<? echo $_GET["id"]; ?>";
     });
@@ -160,53 +192,88 @@
         $(".board_title a")[i].innerText = text_cutting($(".board_title a")[i].innerText, 32);
     }
 
-    <?
-    if($admin_logined){
-        echo '
-        chkbox = $("input.checkbox");
+    chkbox = $("input.checkbox");
 
-        function check_all(box){
-            for(i = 0; i < chkbox.length; i++){
-                chkbox[i].checked = box.checked;
+    function check_all(box){
+        for(i = 0; i < chkbox.length; i++){
+            chkbox[i].checked = box.checked;
+        }
+    }
+
+    function check(box){
+        var all_check = true;
+        for(i = 0; i < chkbox.length; i++){
+            if(chkbox[i].id == "all")
+                continue;
+            if(chkbox[i].checked  == false){
+                all_check = false;
+                break;
             }
         }
+        $("input#all")[0].checked = all_check;
+    }
 
-        function check(box){
-            var all_check = true;
-            for(i = 0; i < chkbox.length; i++){
-                if(chkbox[i].id == "all")
-                    continue;
-                if(chkbox[i].checked  == false){
-                    all_check = false;
-                    break;
-                }
+    $("#select_delete")[0].addEventListener("click",function(event){
+        var all_check = false;
+        for(i = 0; i < chkbox.length; i++){
+            if(chkbox[i].id == "all")
+                continue;
+            if(chkbox[i].checked  == true){
+                all_check = true;
+                break;
             }
-            $("input#all")[0].checked = all_check;
         }
-
-        $("#select_delete")[0].addEventListener("click",function(event){
-            var all_check = false;
-            for(i = 0; i < chkbox.length; i++){
-                if(chkbox[i].id == "all")
-                    continue;
-                if(chkbox[i].checked  == true){
-                    all_check = true;
-                    break;
-                }
-            }
-            if(all_check == false){
-                alert("선택된 게시글이 없습니다.")
-                event.preventDefault();
+        if(all_check == false){
+            alert("선택된 게시글이 없습니다.")
+            event.preventDefault();
+        }
+        else{
+            if(confirm("선택한 게시글을 삭제하시겠습니까?")){
+                $("#delete_cmt_form")[0].submit();
             }
             else{
-                if(confirm("선택한 게시글을 삭제하시겠습니까?")){
-                    $("#delete_cmt_form")[0].submit();
-                }
-                else{
-                    event.preventDefault();
-                }
+                event.preventDefault();
             }
-        });';
+        }
+    });
+
+    $("#select_move")[0].addEventListener("click",function(event){
+        var all_check = false;
+        for(i = 0; i < chkbox.length; i++){
+            if(chkbox[i].id == "all")
+                continue;
+            if(chkbox[i].checked  == true){
+                all_check = true;
+                break;
+            }
+        }
+        if(all_check == false){
+            alert("선택된 게시글이 없습니다.")
+            event.preventDefault();
+        }
+        else{
+            $("#move_board")[0].classList.replace("invisible","move-board-select");
+            update_category($("select#boards")[0].value);
+        }
+    });
+
+    var categories = <? array_converter($category); ?>;
+    var category_select = $("select#cat")[0];
+
+    function update_category(board){
+        if(categories[board] == null)
+            category_select.classList.add("invisible");
+        else{
+            category_select.classList.remove("invisible");
+            var cats = categories[board].split("|");
+            var innerText = "";
+            for(i = 0; i < cats.length; i++){
+                var option = "<option value='"+cats[i]+"'>"+cats[i]+"</option>";
+                innerText += option;
+            }
+            category_select.innerHTML = innerText;
+        }
     }
-    ?>
+
+
 </script>

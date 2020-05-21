@@ -54,14 +54,43 @@
         return $result;
     }
 
+    function sql_table_exist_check($tablename){
+        $sql = "SELECT id FROM CMS_board WHERE id='".$tablename."'";
+        $result = sql_query($sql);
+        if(sql_get_num_rows($result) > 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    function sql_insert_key(){
+        global $conn;
+        return mysqli_insert_id($conn);
+    }
 
 
 // =============================================================
 // 기타
 // =============================================================
+    function array_converter($arr){
+        echo json_encode($arr,JSON_UNESCAPED_UNICODE);
+    }
+
     function referer(){
         if(isset($_SERVER['HTTP_REFERER']))
             header("Location:".$_SERVER['HTTP_REFERER']);
+    }
+
+    function referer_check($url){
+        if(!isset($_SERVER['HTTP_REFERER']))
+            kick("referer isn't set");
+        else{
+            if($_SERVER['HTTP_REFERER'] != $url){
+                kick("referer isn't match");
+            }
+        }
     }
 
     function filter($text, $is_text=false){
