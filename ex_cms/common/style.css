@@ -322,7 +322,7 @@ article#post{
 댓글
 =============================================== */
 
-ul#comment-container { margin:0; border-top: 2px #999 solid; }
+ul#comment-container { width:100%; margin:0; border-top: 2px #999 solid; }
 
 .cmt{padding:10px 15px; border-bottom:1px #bbb solid;}
 .cmt-name{font-weight:bold; text-align: center}
@@ -438,6 +438,13 @@ ul.nav li a{
 
 #nav-userinfo{
     float:right;
+}
+
+#nav-userinfo .icon{
+    width:20px; height:20px;
+    float:left;
+    margin-right:5px;
+    margin-top:15px;
 }
 
 .nav-btn{

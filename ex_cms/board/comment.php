@@ -1,8 +1,14 @@
 <?php
     $sql = "SELECT * FROM CMS_comment_".$_GET["id"]." WHERE post_id=".$_GET["pid"];
     $comments = sql_query($sql);
+
+    $admin_logined = access_check("admin");
  ?>
-<h3 style="margin:0">Comments</h3>
+<form action="_admin_comment_delete_process.php" method="post">
+<h3 style="margin:0">
+    <?//if($admin_logined) echo '<input type="checkbox" onchange="cmt_check_all(this)" id="cmt_all">'?>
+    Comments
+</h3>
 <ul id="comment-container">
     <?
         while($cmt = sql_get_row($comments)){
@@ -23,16 +29,15 @@
             }
 
             echo'
-            <li>
-                <div class="cmt" id="cid'.$cmt['id'].'">
+            <li><div class="cmt" id="cid'.$cmt['id'].'">
                     <div class="cmt-info">
                         <span class="cmt-name">'.$author.'</span><span class="cmt-date">'.$cmt['write_date'].'</span>
-                        <span class="cmt-btns">
-                            <a href="#">답글</a>';
+                        <span class="cmt-btns">';
+                            //<a href="#">답글</a>';
             if(!is_null($cmt["guest_name"]) || $is_mine || access_check("admin")){
             echo'
-                                <a name="'.$_GET["id"].'/'.$cmt['id'].'/edit_cmt/'.$is_guest.'" onclick="comment_password_check(this)">수정</a>
-                                <a name="'.$_GET["id"].'/'.$cmt['id'].'/delete_cmt/'.$is_guest.'" onclick="comment_password_check(this)">삭제</a>'; }
+                            <a name="'.$_GET["id"].'/'.$cmt['id'].'/edit_cmt/'.$is_guest.'" onclick="comment_password_check(this)">수정</a>
+                            <a name="'.$_GET["id"].'/'.$cmt['id'].'/delete_cmt/'.$is_guest.'" onclick="comment_password_check(this)">삭제</a>'; }
             echo'
                         </span>
                     </div>
@@ -42,9 +47,8 @@
             ';
         }
     ?>
-
-
 </ul>
+</form>
 <form id="comment-write-container" method="post" action="_comment_write_process.php">
     <div class="comment-write-box">
         <div class="comment-write-head">
@@ -75,7 +79,6 @@
     cmt_btn.addEventListener("click",function(){
             $("#comment-write-container")[0].action += "?board="+get[0]+"&post="+get[1];
     });
-    hello();
 
     function comment_password_check(btn){
         var info = btn.name.split("/");
@@ -89,4 +92,28 @@
             location.href=link;
         }
     }
+
+    // var cmt_chkbox = $("input.cmt-checkbox");
+    //
+    // function cmt_check_all(box){
+    //     for(i = 0; i < cmt_chkbox.length; i++){
+    //         cmt_chkbox[i].checked = box.checked;
+    //     }
+    // }
+    //
+    // function cmt_check(box){
+    //     var all_check = true;
+    //     for(i = 0; i < cmt_chkbox.length; i++){
+    //         if(cmt_chkbox[i].id == "all")
+    //             continue;
+    //         if(cmt_chkbox[i].checked  == false){
+    //             all_check = false;
+    //             break;
+    //         }
+    //     }
+    //     $("input#cmt_all")[0].checked = all_check;
+    // }
+
+
+
 </script>
