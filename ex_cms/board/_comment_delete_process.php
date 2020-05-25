@@ -42,6 +42,8 @@
 
     $sql = "DELETE FROM CMS_comment_".$id." WHERE id = ".$cid;
     sql_query($sql);
+    $sql = "DELETE FROM CMS_comment_check WHERE board_id='".$id."' AND comment_id=".$cid;
+    sql_query($sql);
 
     header("Location:".$_SESSION["prev_page"]);
     unset($_SESSION["prev_page"]);

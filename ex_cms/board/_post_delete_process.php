@@ -42,6 +42,8 @@
 
     $sql = "DELETE FROM CMS_post_".$id." WHERE id = ".$pid;
     sql_query($sql);
+    $sql = "DELETE FROM CMS_post_check WHERE board_id='".$id."' AND post_id=".$pid;
+    sql_query($sql);
 
     header("Location:http://uraman.m-hosting.kr/ex_cms/board/?id=".$id);
     unset($_SESSION["prev_page"]);

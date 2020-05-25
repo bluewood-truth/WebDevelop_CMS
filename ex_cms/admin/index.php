@@ -2,8 +2,8 @@
     include_once $_SERVER["DOCUMENT_ROOT"]."/ex_cms/common/common.php";
     sql_connect();
 
-    if(!isset($_SESSION["login"])){
-        invalid_access("로그인해주세요.","http://uraman.m-hosting.kr/ex_cms/login/");
+    if(access_check("admin") == false){
+        invalid_access("잘못된 접근입니다.","http://uraman.m-hosting.kr/ex_cms");
     }
 
     if(!isset($_GET["tab"]))
@@ -31,7 +31,8 @@
         <div class="screen-width" style="width:800px;">
             <h2>관리자 페이지</h2>
             <ul id="tab-menu">
-                <li <?tab_selected("members")?>><a href="http://uraman.m-hosting.kr/ex_cms/admin/?tab=members">멤버 관리</a></li>
+                <li <?tab_selected("members")?>><a href="http://uraman.m-hosting.kr/ex_cms/admin/?tab=members">회원 관리</a></li>
+                <li <?tab_selected("ban_members")?>><a href="http://uraman.m-hosting.kr/ex_cms/admin/?tab=ban_members">정지/탈퇴 회원</a></li>
                 <li <?tab_selected("boards")?>><a href="http://uraman.m-hosting.kr/ex_cms/admin/?tab=boards">게시판 관리</a></li>
             </ul>
             <div id="tab-body">

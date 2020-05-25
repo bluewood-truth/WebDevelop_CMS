@@ -32,6 +32,8 @@
                 kick(1); // 해당 회원의 것이 아닌 글
 
             sql_query("DELETE FROM CMS_".$type."_".$bid." WHERE id=".$pid);
+            $sql = "DELETE FROM CMS_".$type."_check WHERE board_id='".$bid."' AND ".$type."_id=".$pid;
+            sql_query($sql);
         }
     }
     else if ($_POST["submit_button"] == "전체 삭제"){
@@ -40,6 +42,8 @@
 
         while($row = sql_get_row($result)){
             $sql = "DELETE FROM CMS_".$type."_".$row["id"]." WHERE author_id =".$_SESSION["login"];
+            sql_query($sql);
+            $sql = "DELETE FROM CMS_".$type."_check WHERE member_id=".$_SESSION["login"];
             sql_query($sql);
         }
     }

@@ -27,6 +27,8 @@
 
         $sql = "INSERT INTO `CMS_comment_".$_GET["board"]."` (content,author_id,author_nickname,post_id,write_date) VALUES('".$content."','".$author_id."','".$author_nickname."','".$post_id."',now())";
         sql_query($sql);
+        $sql = "INSERT INTO CMS_comment_check (member_id,board_id,post_id,comment_id) VALUES('".$_SESSION['login']."','".$_GET['board']."','".$post_id."','".sql_insert_key()."')";
+        sql_query($sql);
         referer();
         exit;
     }

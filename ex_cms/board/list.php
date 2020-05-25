@@ -172,13 +172,13 @@
     <form method="get">
         <input class="hidden-data" name="id" value="<?echo $_GET["id"]?>">
         <select name="search_type">
-            <option value="title">제목</option>
-            <option value="content">내용</option>
-            <option value="title+content">제목+내용</option>
-            <option value="author">글쓴이</option>
-            <option value="category">분류</option>
+            <option value="title" <?if(isset($_GET["search_type"]))if($_GET["search_type"]=="title") echo 'selected';?>>제목</option>
+            <option value="content" <?if(isset($_GET["search_type"]))if($_GET["search_type"]=="content") echo 'selected';?>>내용</option>
+            <option value="title+content" <?if(isset($_GET["search_type"]))if($_GET["search_type"]=="title+content") echo 'selected';?>>제목+내용</option>
+            <option value="author" <?if(isset($_GET["search_type"]))if($_GET["search_type"]=="author") echo 'selected';?>>글쓴이</option>
+            <option value="category" <?if(isset($_GET["search_type"]))if($_GET["search_type"]=="category") echo 'selected';?>>분류</option>
         </select>
-        <input type="text" name="keyword" value="">
+        <input type="text" name="keyword" value="<?if(isset($_GET["keyword"])) echo $_GET["keyword"];?>">
         <input id="search-btn" type="submit" value="검색">
     </form>
 </div>

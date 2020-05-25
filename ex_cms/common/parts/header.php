@@ -12,6 +12,8 @@
     }
 
     $board_group = sql_query("SELECT * FROM CMS_board_group ORDER BY order_nav");
+
+    $admin_logined = access_check("admin");
  ?>
 <script src="/ex_cms/common/common.js"></script>
 <header id="header">
@@ -37,7 +39,7 @@
         ?>
         </ul>
         <div id="nav-userinfo">
-            <a href="/ex_cms/admin?tab=members"><img class="icon" src="/ex_cms/images/icon_admin_page.png" ></a>
+            <?if($admin_logined) echo '<a href="/ex_cms/admin?tab=members"><img class="icon" src="/ex_cms/images/icon_admin_page.png" ></a>';?>
             <span class="nav-msg" style="display:<? display_style('block','none') ?>"><a style="font-weight:bold; color:#eee;" href="/ex_cms/mypage/?tab=info"><? echo get_login_nickname() ?></a>님, 환영합니다.</span>
             <input type="button" class="nav-btn" style="display:<? display_style('block','none') ?>" value="로그아웃" onclick="logout();">
             <input type="button" class="nav-btn" style="display:<? display_style('none','block') ?>" value="로그인" onclick="location.href='/ex_cms/login'">

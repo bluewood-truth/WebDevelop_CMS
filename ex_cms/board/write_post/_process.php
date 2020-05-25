@@ -46,6 +46,8 @@
             $sql = "INSERT INTO `CMS_post_".$_GET["id"]."` (title,content,author_id,author_nickname,category,write_date)
                     VALUES('".$title."','".$content."','".$author_id."','".$author_nickname."','".$category."',now())";
             sql_query($sql);
+            $sql = "INSERT INTO CMS_post_check (member_id,board_id,post_id) VALUES("."'".$_SESSION['login']."','".$_GET['id']."','".sql_insert_key()."')";
+            sql_query($sql);
         }
 
         // 게스트일 경우

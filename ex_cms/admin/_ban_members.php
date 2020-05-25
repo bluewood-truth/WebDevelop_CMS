@@ -110,28 +110,7 @@
     </tbody>
 </table>
 <div id="buttons">
-    <div id="authority-change" class="bg-gray invisible" style="position:absolute; margin-top:45px">
-        <select name="authority">
-            <option value="관리자">관리자</option>
-            <option value="회원">회원</option>
-        </select>
-        <input type="submit" name="authority_change" value="확인">
-        <input type="button" value="취소" onclick="this.closest('div#authority-change').classList.replace('button-submenu','invisible')">
-    </div>
-    <input id="select_authority_change" style="font-size:13.333px;" type="button" class="btn-mini bg-gray" value="권한 변경">
-    <div id="ban" class="bg-gray invisible" style="position:absolute; margin-top:45px">
-        <select name="ban_period">
-            <option value="1">1일</option>
-            <option value="3">3일</option>
-            <option value="7">7일</option>
-            <option value="30">30일</option>
-            <option value="99999">영구</option>
-        </select>
-        <input type="submit" name="ban" value="확인">
-        <input type="button" value="취소" onclick="this.closest('div#ban').classList.replace('button-submenu','invisible')">
-    </div>
-    <input id="select_ban" style="font-size:13.333px" type="button" class="btn-mini bg-gray" value="활동 정지">
-    <input id="select_delete" style="font-size:13.333px" type="submit" class="btn-mini bg-gray" name="delete" value="강제 탈퇴">
+    <input id="select_ban" style="font-size:13.333px" type="button" class="btn-mini bg-gray" value="정지 해제">
 </div>
 <input type="hidden" name="type" value="post">
 </form>
@@ -206,70 +185,6 @@
         }
         $("input#all")[0].checked = all_check;
     }
-
-
-    $("#select_delete")[0].addEventListener("click",function(event){
-        var check = false;
-        for(i = 0; i < chkbox.length; i++){
-            if(chkbox[i].id == "all")
-                continue;
-            if(chkbox[i].checked  == true){
-                check = true;
-                break;
-            }
-        }
-        if(check == false){
-            alert("선택된 멤버가 없습니다.")
-            event.preventDefault();
-        }
-        else{
-            if(confirm("선택한 멤버를 강제 탈퇴시키겠습니까?")){
-
-                $("#member_action_form")[0].submit();
-            }
-            else{
-                event.preventDefault();
-            }
-        }
-    });
-
-    $("#select_authority_change")[0].addEventListener("click",function(event){
-        var check = false;
-        for(i = 0; i < chkbox.length; i++){
-            if(chkbox[i].id == "all")
-                continue;
-            if(chkbox[i].checked  == true){
-                check = true;
-                break;
-            }
-        }
-        if(check == false){
-            alert("선택된 회원이 없습니다.")
-            event.preventDefault();
-        }
-        else{
-            $("#authority-change")[0].classList.replace("invisible","button-submenu")
-        }
-    });
-
-    $("#select_ban")[0].addEventListener("click",function(event){
-        var check = false;
-        for(i = 0; i < chkbox.length; i++){
-            if(chkbox[i].id == "all")
-                continue;
-            if(chkbox[i].checked  == true){
-                check = true;
-                break;
-            }
-        }
-        if(check == false){
-            alert("선택된 회원이 없습니다.")
-            event.preventDefault();
-        }
-        else{
-            $("#ban")[0].classList.replace("invisible","button-submenu")
-        }
-    });
 
 
 

@@ -157,7 +157,7 @@
             letter-spacing:-1px;";
         switch($authority){
             case "member":
-                $icon = $icon."background-color: #555;'>회원</span>";
+                $icon = $icon."background-color: #888;'>회원</span>";
                 break;
             case "admin":
                 $icon = $icon."background-color: #ff7530;'>관리</span>";
