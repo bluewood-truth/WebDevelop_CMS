@@ -1,60 +1,115 @@
 <?php
-    $sql = "SELECT * FROM CMS_board ORDER BY group_id";
-    $boards = sql_query($sql);
-
-    $result = sql_query("SELECT id,name_kor FROM CMS_board_group");
-    $groups;
-    while($row = sql_get_row($result)){
-        $groups[$row["id"]] = $row["name_kor"];
-    }
+    $result = sql_query("SELECT * FROM CMS_board_group");
 ?>
 
 <style>
-    #mypage-posts{padding:30px 0;}
-    #mypage-posts table{font-size:13px;  border-collapse: collapse;
-        border-top:2px solid #aaa; border-bottom:2px solid #aaa; margin-top:10px}
-    #mypage-posts tr{height:30px}
-    #mypage-posts thead {border-bottom:2px solid #aaa;}
-    #mypage-posts tbody tr{border-bottom:1px solid #aaa;}
-    #mypage-posts .group{width:120px; text-align: center;}
-    #mypage-posts .board{width:120px; text-align: center;}
-    #mypage-posts .board a:hover{text-decoration: underline;}
-    #mypage-posts .access{width:120px; text-align: center;}
-    #mypage-posts #buttons{text-align: right; margin:5px;}
-    #mypage-posts .msg{font-weight: bold; font-size:13px;}
+    #admin-boards {padding:30px 0;}
+
+    #board-order-box{ display:inline-block; width:200px; }
+
+    #board-list {border:1px solid #bbb; }
+    #board-list ul {margin:0;}
+    #board-list li{ font-size:14px; box-sizing: border-box;}
+    #board-list .board{padding-left:20px}
+    #board-list a {user-select: none; width:100%; height:100%; display:block; padding:5px 0; box-sizing: border-box;}
+
+    #board-order-box .order-change-btns {text-align: center;}
+
+    #admin-boards #buttons{text-align: center;}
+    a.on {background-color: #ddd;}
 </style>
 
-<div id="mypage-posts">
-<form id="delete_post_form" method="POST" action="process/_delete_process.php">
-<table>
-    <thead>
-        <tr>
-            <th class="group">게시판그룹명</th>
-            <th class="board">게시판명</th>
-            <th class="access">접근제한</th>
-        </tr>
-    </thead>
-    <tbody>
-    <?
-        while ($row = sql_get_row($boards)){
-            echo "
-            <tr>
-                <td class='group'>".$groups[$row["group_id"]]."</th>
-                <td class='board'>".$row["name_kor"]."</th>
-                <td class='access'>".authority_kor($row["access"]   )."</th>
-            </tr>
-            ";
-        }
-    ?>
-    </tbody>
-</table>
+<div id="admin-boards">
+<form id="" method="POST" action="">
+<div id="board-order-box">
+    <div id="board-list">
+        <ul class="list">
+        <?
+            while ($group = sql_get_row($result)){
+                echo "<li><a class='group selectable'>".$group["name_kor"]."</a>";
+                echo "<input type='hidden' name='group_order' value='".$group["id"]."'>";
+                echo "<ul class='list'>";
+                $boards = sql_query("SELECT * FROM CMS_board WHERE group_id=".$group["id"]);
+                while ($board = sql_get_row($boards)){
+                    echo "<li><a class='board selectable'>".$board["name_kor"]."</a>";
+                    echo "<input type='hidden' name='group_order' value='".$group["id"].":".$board["id"]."'>";
+                    echo "</li>";
+                }
+                echo "</ul>";
+                echo "</li>";
+            }
+        ?>
+        </ul>
+    </div>
+    <div class="order-change-btns">
+        <input type="button" class="up" value="▲" onclick="">
+        <input type="button" class="down" value="▼">
+    </div>
+</div>
 <div id="buttons">
-    <input id="select_delete" style="font-size:13.333px" type="submit" class="btn-mini bg-gray" name="submit_button" value="선택 삭제">
-    <input id="all_delete" style="font-size:13.333px" type="submit" class="btn-mini bg-gray" onclick="return confirm('정말로 모든 게시글을 삭제하시겠습니까?')" name="submit_button" value="전체 삭제">
+    <input id="select_delete" style="font-size:13.333px" type="submit" class="btn-mini bg-gray" name="submit_button" value="저장하기">
 </div>
 <input type="hidden" name="type" value="post">
 </form>
 </div>
 
 <script>
+    $("#board-list a.selectable").toArray().forEach((element) => {
+        element.addEventListener("click",function(){
+            $("#board-list a.selectable").toArray().forEach(element => reset_select(element));
+            element.classList.add("on");
+        });
+    });
+
+    $(".order-change-btns input").toArray().forEach((element) => {
+        element.addEventListener("click",function(){
+            var selected = $("#board-list .on")[0].closest("li");
+            var direction = element.className;
+            li_change_order(selected,direction);
+        });
+    });
+
+
+    function reset_select(element){
+        element.classList.remove("on");
+    }
+
+    // ul 내에서 li의 순서를 바꾸는 함수
+    function li_change_order(li, direction){
+        if(li.tagName != "LI"){
+            console.log("li가 아님");
+            return;
+        }
+        var parent = li.closest("ul");
+        var order_now = get_li_index(li);
+
+        if(direction == "up"){
+            if(order_now == 0){
+                console.log("이미 맨 위임");
+                return;
+            }
+            parent.insertBefore(li, parent.children[order_now-1]);
+        }
+        else if(direction == "down"){
+            if(order_now == parent.childElementCount - 1){
+                console.log("이미 맨 아래임");
+                return;
+            }
+            parent.insertBefore(li, parent.children[order_now+2]);
+        }
+    }
+
+    // ul 내에서 li의 순서를 반환하는 함수
+    function get_li_index(li){
+        if(li.tagName != "LI"){
+            console.log("li가 아님");
+            return;
+        }
+        var parent = li.closest("ul");
+        for(var i = 0; i < parent.childElementCount; i++){
+            if(li == parent.children[i])
+                return i;
+        }
+        console.log("찾지 못함");
+    }
 </script>

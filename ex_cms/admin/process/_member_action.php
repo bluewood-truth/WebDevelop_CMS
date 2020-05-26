@@ -19,18 +19,27 @@
         $action = "ban";
     else if(isset($_POST["delete"]))
         $action = "delete";
+    else if(isset($_POST["release_ban"]))
+        $action = "release_ban";
     else
         kick(12);
 
     for($i = 0; $i < count($checked); $i++){
+
+        $id = $checked[$i];
+
+        if($action=="release_ban"){
+            $sql = "DELETE FROM CMS_user_banlist WHERE user_id=".$id;
+            sql_query($sql);
+            continue;
+        }
+
         $result = sql_query("SELECT is_admin FROM CMS_userinfo WHERE id=".$checked[$i]);
         if(sql_get_num_rows($result) == 0)
             continue;
         $member_authority = sql_get_row($result)["is_admin"];
         if(($my_authority == "admin" && $member_authority == "admin" )|| $member_authority == "super_admin")
             continue;
-
-        $id = $checked[$i];
 
         switch($action){
             case "authority_change":
@@ -72,10 +81,13 @@
             invalid_access("권한 변경이 완료되었습니다.");
             break;
         case "ban":
-            invalid_access("정지가 완료되었습니다..");
+            invalid_access("정지가 완료되었습니다.");
             break;
         case "delete":
             invalid_access("탈퇴되었습니다.");
+            break;
+        case "release_ban":
+            invalid_access("정지가 해제되었습니다.");
             break;
     }
 ?>

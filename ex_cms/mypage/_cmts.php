@@ -5,10 +5,10 @@
     $sql = "";
     while($row = sql_get_row($result)){
         if($sql == ""){
-            $sql = "SELECT id,content,write_date,'".$row["name_kor"]."' as name_kor,'".$row["id"]."' as bid FROM CMS_comment_".$row["id"]." WHERE author_id=".$_SESSION["login"];
+            $sql = "SELECT id,content,post_id,write_date,'".$row["name_kor"]."' as name_kor,'".$row["id"]."' as bid FROM CMS_comment_".$row["id"]." WHERE author_id=".$_SESSION["login"];
         }
         else{
-            $sql = $sql." UNION ALL SELECT id,content,write_date,'".$row["name_kor"]."' as name_kor,'".$row["id"]."' as bid FROM CMS_comment_".$row["id"]." WHERE author_id=".$_SESSION["login"];
+            $sql = $sql." UNION ALL SELECT id,content,post_id,write_date,'".$row["name_kor"]."' as name_kor,'".$row["id"]."' as bid FROM CMS_comment_".$row["id"]." WHERE author_id=".$_SESSION["login"];
         }
     }
     $page = 1;
@@ -31,7 +31,7 @@
     #mypage-cmts thead {border-bottom:2px solid #aaa;}
     #mypage-cmts tbody tr{border-bottom:1px solid #aaa;}
     #mypage-cmts .chkbox{width:30px; text-align: center;}
-    #mypage-cmts .board{width:120px; text-align: center;}
+    #mypage-cmts .board{width:160px; text-align: center;}
     #mypage-cmts .content a:hover{text-decoration: underline;}
     #mypage-cmts .date{width:80px; text-align: center;}
 
@@ -63,7 +63,7 @@
             <tr>
                 <td class='chkbox'><input type='checkbox' class='checkbox' onchange='check(this)' name='checked[]' value='".$row["bid"]."/".$row["id"]."'></td>
                 <td class='board'>".$row["name_kor"]."</td>
-                <td class='content'><a href='http://uraman.m-hosting.kr/ex_cms/board/?id=".$row["bid"]."&pid=".$row["id"]."'>".$row["content"]."</a></td>
+                <td class='content'><a href='http://uraman.m-hosting.kr/ex_cms/board/?id=".$row["bid"]."&pid=".$row["post_id"]."'>".$row["content"]."</a></td>
                 <td class='date'>".$date."</td>
             </tr>
             ";

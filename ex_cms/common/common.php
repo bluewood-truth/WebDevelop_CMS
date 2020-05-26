@@ -235,4 +235,23 @@
                 return "전체";
         }
     }
+
+    function ban_check(){
+        if(isset($_SESSION["login"])){
+            global $conn;
+            $sql = "SELECT end_date FROM CMS_user_banlist WHERE user_id=".$_SESSION["login"];
+            $result = sql_query($sql);
+            $row = sql_get_row($result);
+
+            if(!is_null($row) && $row["end_date"] > date("Y-m-d H:i:s")){
+                unset($_SESSION['login']);
+                $msg = "활동 정지된 계정입니다. \\n ".$row["end_date"]."에 정지가 해제됩니다.";
+                echo '<script>';
+                echo 'alert("'.$msg.'");';
+                echo 'location.href="http://uraman.m-hosting.kr/ex_cms/";';
+                echo '</script>';
+                exit;
+            }
+        }
+    }
 ?>

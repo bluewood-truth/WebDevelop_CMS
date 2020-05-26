@@ -19,12 +19,11 @@
                 $sql = $sql.' WHERE email LIKE "%'.$_GET["keyword"].'%"';
                 break;
         }
-        $sql = $sql." AND deleted=0 AND end_date IS NULL";
+        $sql = $sql." AND deleted=0 AND (end_date < now() OR end_date IS NULL)";
     }
     else{
-        $sql = $sql." WHERE deleted=0 AND end_date IS NULL";
+        $sql = $sql." WHERE deleted=0 AND (end_date < now() OR end_date IS NULL)";
     }
-
     $total_post = sql_get_num_rows(sql_query($sql));
     $total_page = intval(($total_post-1) / $post_by_page) + 1;
 
@@ -58,7 +57,7 @@
 </style>
 
 <div id="admin-members">
-<span class="msg">전체 회원 수: <?echo $total_post?></span>
+<span class="msg">활동 회원 수: <?echo $total_post?></span>
 <form id="member_action_form" method="POST" action="process/_member_action.php">
 <table>
     <thead>
@@ -131,7 +130,7 @@
         <input type="button" value="취소" onclick="this.closest('div#ban').classList.replace('button-submenu','invisible')">
     </div>
     <input id="select_ban" style="font-size:13.333px" type="button" class="btn-mini bg-gray" value="활동 정지">
-    <input id="select_delete" style="font-size:13.333px" type="submit" class="btn-mini bg-gray" name="delete" value="강제 탈퇴">
+    <input id="select_delete" style="font-size:13.333px" type="button" class="btn-mini bg-gray" name="delete" value="강제 탈퇴">
 </div>
 <input type="hidden" name="type" value="post">
 </form>
@@ -224,8 +223,7 @@
         }
         else{
             if(confirm("선택한 멤버를 강제 탈퇴시키겠습니까?")){
-
-                $("#member_action_form")[0].submit();
+                
             }
             else{
                 event.preventDefault();
