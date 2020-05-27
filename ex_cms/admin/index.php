@@ -14,6 +14,9 @@
     function tab_selected($tab){
         if($_GET["tab"] == $tab){
             echo "class='selected'";
+        }else if($tab == "boards"){
+            if($_GET["tab"] == "board_order" || $_GET["tab"] == "board_edit")
+                echo "class='selected'";
         }
     }
  ?>
