@@ -2,55 +2,9 @@
     $result = sql_query("SELECT * FROM CMS_board_group ORDER BY order_nav");
 ?>
 
-<style>
-    #admin-boards {padding:30px 50px; display:flex}
-
-    #board-order-box{
-        display:inline-block;
-        width:200px; box-sizing: border-box;margin-right:30px;
-    }
-    #board-order-box #board-list {border:1px solid #bbb; margin:10px 0;}
-    #board-order-box #board-list ul {margin:0;}
-    #board-order-box #board-list li{ font-size:14px; box-sizing: border-box;}
-    #board-order-box #board-list .board{padding-left:20px}
-    #board-order-box #board-list a {user-select: none; width:100%; height:100%; display:block; padding:5px 0; box-sizing: border-box;}
-
-    #board-order-box .order-change-btn {text-align: center;}
-    #board-order-box .order-change-btn input {width:90px;}
-    a.on {background-color: #ddd;}
-
-    #board-info{font-size:14px; width:calc(100% - 250px); display:inline-block;}
-    #board-info table{
-        box-sizing: border-box;
-        width:100%;
-        border-collapse: collapse;
-        border-top:2px solid #555;
-        border-bottom:2px solid #555;
-    }
-    #board-info tr{height:40px}
-    #board-info td.label{width:100px; padding-left:10px; font-weight: bold;}
-    #board-info div.buttons {text-align:center; padding-top:10px;}
-    #board-info div.buttons input { width:100px;}
-
-    #group-info{font-size:14px; width:calc(100% - 250px); display:inline-block;}
-    #group-info table{
-        box-sizing: border-box;
-        width:100%;
-        border-collapse: collapse;
-        border-top:2px solid #555;
-        border-bottom:2px solid #555;
-    }
-    #group-info tr{height:40px}
-    #group-info td.label{width:100px; padding-left:10px; font-weight: bold;}
-    #group-info div.buttons {text-align:center; padding-top:10px;}
-    #group-info div.buttons input { width:150px;}
-
-    #group-info #modify-groupname-box input{height:30px; box-sizing: border-box; font-size:13px;}
-</style>
-
 <form id="action_form" method="POST" >
 <div id="admin-boards">
-    <div id="board-order-box">
+    <div id="board-order-box" style="margin-right:30px;">
         <div class="order-change-btn">
             <input style="font-size:13.333px" type="button" value="+ 게시판" class="btn-mini bg-orange" onclick="location.href='?tab=board_create'">
             <input style="font-size:13.333px;" type="button" value="+ 게시판그룹" class="btn-mini bg-orange" onclick="location.href='?tab=group_create'">
@@ -100,7 +54,7 @@
         <input type="hidden" id="id" name="group_id" value="">
         <div class="buttons">
             <input style="font-size:13.333px" id="modify-groupname" type="button" value="게시판그룹명 수정" class="btn-mini bg-gray" onclick="">
-            <input style="font-size:13.333px" type="button" value="게시판그룹 삭제" class="btn-mini bg-gray" onclick="">
+            <input style="font-size:13.333px" id="delete-group" type="submit" value="게시판그룹 삭제" class="btn-mini bg-gray" onclick="">
         </div>
     </div>
     <div id="board-info" style="display:none">
@@ -132,7 +86,7 @@
         </table>
         <input type="hidden" id="id" name="board_id" value="">
         <div class="buttons">
-            <input style="font-size:13.333px" type="button" value="게시판 수정" class="btn-mini bg-gray" onclick="location.href='?tab=board_edit'">
+            <input style="font-size:13.333px" type="submit" value="게시판 수정" class="btn-mini bg-gray" onclick='set_action_submit("?tab=board_edit",false);'>
             <input style="font-size:13.333px" id="clear-board" type="submit" value="게시판 초기화" class="btn-mini bg-gray" onclick="">
             <input style="font-size:13.333px" id="delete-board" type="submit" value="게시판 삭제" class="btn-mini bg-gray" onclick="">
         </div>
@@ -243,8 +197,12 @@
 
 
 
-    function set_action_submit(action){
-        $("#action_form")[0].action = "process/" + action;
+    function set_action_submit(action, proc=true){
+        if(proc)
+            $("#action_form")[0].action = "process/" + action;
+        else {
+            $("#action_form")[0].action = action;
+        }
         $("#action_form")[0].submit;
     }
 
@@ -255,12 +213,12 @@
         $("#group-info #name span")[0].style.display="none";
     });
     $("#modify-groupname-box input.submit")[0].addEventListener("click",function(event){
-        var reg = /^[가-힣a-zA-Z0-9]{1,7}$/;
+        var reg = /^[가-힣a-zA-Z0-9 ]{1,7}$/;
         if(reg.test($("#modify-groupname-box input.text")[0].value)){
             set_action_submit("_modify_group_name.php");
         }
         else{
-            alert("1~7자의 한글, 영문, 숫자만 입력 가능합니다.")
+            alert("1~7자의 한글, 영문, 숫자, 공백만 입력 가능합니다.")
             event.preventDefault();
         }
     });
@@ -277,4 +235,25 @@
         }
     });
     // =====================================================================================
+
+    // =====================================================================================
+    // 게시판그룹 삭제
+    $("#delete-group")[0].addEventListener("click",function(event){
+        if(confirm("게시판그룹을 삭제하시겠습니까?")){
+            set_action_submit("_delete_group.php");
+        }
+        else{
+            event.preventDefault();
+        }
+    });
+    // =====================================================================================
+
+    // =====================================================================================
+    // 게시판 수정
+    // $("#modify-board")[0].addEventListener("click",function(event){
+    //
+    // });
+
+    // =====================================================================================
+
 </script>

@@ -3,27 +3,15 @@
 ?>
 
 <style>
-    #admin-boards {padding:30px 0; text-align: center}
-
-    #board-order-box{ display:inline-block; width:200px; }
-
-    #board-list {border:1px solid #bbb; text-align: left}
-    #board-list ul {margin:0;}
-    #board-list li{ font-size:14px; box-sizing: border-box;}
-    #board-list .board{padding-left:20px}
-    #board-list a {user-select: none; width:100%; height:100%; display:block; padding:5px 0; box-sizing: border-box;}
-    #board-list .non-selectable {color:#999}
-
-    #board-order-box .order-change-btns {text-align: center;}
-
-    #admin-boards #buttons{text-align: center;margin-top:20px}
-    a.on {background-color: #ddd;}
+#board-list .non-selectable {color:#999}
+#board-order-box .order-change-btns {text-align: center;}
+#admin-boards #buttons{text-align: center;margin-top:20px}
 </style>
 
-<div id="admin-boards">
+<div id="admin-boards" style="display:flex; justify-content:center">
 <form id="order_done" method="POST" action="process/_board_order_change.php">
 <div id="board-order-box">
-    <div id="board-list">
+    <div id="board-list" style="text-align: left">
         <ul class="list">
         <?
             while ($group = sql_get_row($result)){

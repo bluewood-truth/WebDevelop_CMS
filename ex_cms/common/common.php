@@ -46,7 +46,7 @@
     function sql_login_check($id, $pw){
         $pw = sha1($pw);
 
-        $sql = "SELECT id FROM CMS_userinfo WHERE user_id = '".$id."' AND password = '".$pw."'";
+        $sql = "SELECT id FROM CMS_userinfo WHERE user_id = '".$id."' AND password = '".$pw."' AND deleted = 0";
         $result = sql_query($sql);
         $result = sql_get_num_rows($result) != 0;
 
@@ -242,7 +242,6 @@
             $sql = "SELECT end_date FROM CMS_user_banlist WHERE user_id=".$_SESSION["login"];
             $result = sql_query($sql);
             $row = sql_get_row($result);
-
             if(!is_null($row) && $row["end_date"] > date("Y-m-d H:i:s")){
                 unset($_SESSION['login']);
                 $msg = "활동 정지된 계정입니다. \\n ".$row["end_date"]."에 정지가 해제됩니다.";
