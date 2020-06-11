@@ -6,6 +6,7 @@ input { font-size:12px; }
 .spacer {clear: both;}
 
 a { text-decoration: none; color:black;}
+a:hover{cursor:pointer;}
 
 p{ margin:0; }
 
@@ -63,6 +64,7 @@ p.article-text{
     font-weight:bold;
     border-radius:3px;
 }
+.custom-button:hover{ cursor:pointer;}
 
 .bg-orange{
     background-color:#ff7530;
@@ -264,9 +266,11 @@ article#post{
 .btn-recommend {margin:0; width:70px; height:30px}
 .btn-recommend .up{color:red; font-weight:bold}
 .btn-recommend .down{color:blue; font-weight:bold}
+.btn-recommend:hover{ cursor:pointer;}
 
 .post-bottom-buttons { padding-top:10px; text-align: right;}
 .btn-mini{ font-weight: bold; width:90px; height:40px; color:white; border:none; border-radius: 3px;}
+.btn-mini:hover{ cursor:pointer;}
 
 #password-box { padding:30px 20px; border:3px #555 solid; margin:0 auto; width:300px; text-align: center;}
 #password-box h3{margin:5px;}
