@@ -3,27 +3,37 @@
     sql_connect();
 
     $bid = $_POST["bid"];
-    $name = $_POST["name_kor"];
+    $name = filter($_POST["name_kor"]);
     $on_menu = $_POST["display_on_menu"]=="true"?true:false;
-    $cat_list = explode('|',sql_get_row($result)["category_list"]);
+    $cat_list = isset($_POST["cat"])?$_POST["cat"]:null;
     $access = $_POST["access"];
     $group = $_POST["group"];
 
-    $new_list = "";
-    for($i=0; $i < count($cat_list); $i++){
-        if($cat_list[$i] == $cat)
-            continue;
-
-        $new_list = $new_list.$cat_list[$i]."|";
+    $new_list = "NULL";
+    if(!is_null($cat_list)){
+        $new_list = "";
+        for($i=0; $i < count($cat_list); $i++){
+            $new_list = $new_list.$cat_list[$i]."|";
+        }
+        $new_list = "'".mb_substr($new_list, 0, -1)."'";
     }
-    $new_list = mb_substr($new_list, 0, -1);
 
     $order_sub = null;
     if($on_menu){
-        $result = sql_query("SELECT order_sub FROM CMS_board WHERE group_id='".$group."' ORDER BY order_sub DESC");
-        $max_num = sql_get_row($result)["order_sub"];
-        $order_sub = $max_num + 1;
-    }
+        $prev_group = sql_get_row(sql_query("SELECT group_id FROM CMS_board WHERE id='".$bid."'"))["group_id"];
 
-    $sql = "UPDATE CMS_board SET name_kor='".$name."', "
+        $result = sql_query("SELECT order_sub FROM CMS_board WHERE id='".$bid."'");
+        if(sql_get_num_rows($result) == 0 || $group != $prev_group){
+            $result = sql_query("SELECT order_sub FROM CMS_board WHERE group_id='".$group."' ORDER BY order_sub DESC");
+            $max_num = sql_get_row($result)["order_sub"];
+            $order_sub = $max_num + 1;
+        }
+        else{
+            $order_sub = sql_get_row($result)["order_sub"];
+        }
+    }
+    $sql = "UPDATE CMS_board SET name_kor='".$name."', group_id='".$group."', order_sub='".$order_sub."', category_list=".$new_list." WHERE id='".$bid."'";
+    
+    sql_query($sql);
+    invalid_access("수정되었습니다.", "/ex_cms/admin/?tab=boards");
 ?>

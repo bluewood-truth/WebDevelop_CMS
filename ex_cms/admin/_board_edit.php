@@ -89,7 +89,7 @@
 </style>
 
 <div id="admin-boards" style="display:flex; justify-content:center">
-<form method="POST" action="process/_modify_board.php">
+<form id="edit_board_form" method="POST" action="process/_modify_board.php">
 <div id="board-edit-box">
     <div id="board-info" style="width:450px">
         <table>
@@ -100,7 +100,7 @@
             <tr>
                 <td class="label">게시판명</td>
                 <td id="name" class="value">
-                    <input type="text" name="name_kor" value="<?echo $name?>">
+                    <input type="text" name="name_kor" minlength="1" maxlength="7" required="required" value="<?echo $name?>">
                 </td>
             </tr>
             <tr>
@@ -124,7 +124,7 @@
                 <td class="label">게시글 분류</td>
                 <td id="category" class="value">
                     <div class="head">
-                        <input type="text" class="add_value" name="" value="">
+                        <input type="text" class="add_value" onkeydown="if(event.keyCode == 13)add_cat()"  minlength="1" maxlength="7" name="" value="">
                         <input type="button" name="" onclick="add_cat()" value="추가">
                     </div>
                 </td>
@@ -139,26 +139,28 @@
                         if(sql_get_num_rows($result) == 0)
                             kick(0);
 
-                        $cat_list = explode('|',sql_get_row($result)["category_list"]);
-
-                        for($i=0; $i < count($cat_list); $i++){
-                            echo
-                            '<div>
-                                <div class="edit invisible">
-                                    <input type="text" class="editname" onkeydown="if(event.keyCode == 13)edit_done(this)" minlength="1" maxlength="7" value="'.$cat_list[$i].'">
-                                    <div class="btns">
-                                        <input type="button" onclick="edit_done(this)" value="확인">
+                        $tmp = sql_get_row($result)["category_list"];
+                        if(is_null($tmp) == false){
+                            $cat_list = explode('|',$tmp);
+                            for($i=0; $i < count($cat_list); $i++){
+                                echo
+                                '<div>
+                                    <div class="edit invisible">
+                                        <input type="text" class="editname" onkeydown="if(event.keyCode == 13)edit_done(this)" minlength="1" maxlength="7" value="'.$cat_list[$i].'">
+                                        <div class="btns">
+                                            <input type="button" onclick="edit_done(this)" value="확인">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="display">
-                                    <span class="name">'.$cat_list[$i].'</span>
-                                    <div class="btns">
-                                        <a onclick="edit_cat(this)"><img src="/ex_cms/images/icon_edit.png"></a>
-                                        <a onclick="remove_cat(this)"><img src="/ex_cms/images/icon_cancel.png"></a>
+                                    <div class="display">
+                                        <span class="name">'.$cat_list[$i].'</span>
+                                        <div class="btns">
+                                            <a onclick="edit_cat(this)"><img src="/ex_cms/images/icon_edit.png"></a>
+                                            <a onclick="remove_cat(this)"><img src="/ex_cms/images/icon_cancel.png"></a>
+                                        </div>
+                                        <input type="hidden" class="hdn" name="cat[]" value="'.$cat_list[$i].'">
                                     </div>
-                                    <input type="hidden" class="hdn" name="cat[]" value="'.$cat_list[$i].'">
-                                </div>
-                            </div>';
+                                </div>';
+                            }
                         }
                     ?>
                     </div>
@@ -177,8 +179,8 @@
             <tr>
                 <td class="label">메뉴에 표시</td>
                 <td id="order" class="value">
-                    <input type="radio" name="display_on_menu" value="true" <? display_on_menu("true"); ?>>예
-                    <input type="radio" name="display_on_menu" value="false"  <? display_on_menu("false"); ?>>아니오
+                    <input type="radio" name="display_on_menu" required value="true" <? display_on_menu("true"); ?>>예
+                    <input type="radio" name="display_on_menu" required value="false"  <? display_on_menu("false"); ?>>아니오
                 </td>
             </tr>
         </table>
@@ -191,100 +193,15 @@
 </div>
 </form>
 
-
+<script type="text/javascript" src="_js_board_category_handler.js"></script>
 <script>
-    function remove_cat(tag){
-        var cat = tag.closest("div#category_list>div");
-        var cat_name = cat.querySelector("span.name").innerText;
-        var bid = $("#id")[0].value;
-
-        // $.ajax({
-        //     url:"process/_ajax_remove_cat.php",
-        //     method:"POST",
-        //     data: {"bid":bid, "cat":cat_name},
-        //     dataType: "text",
-        //     success:function(data){
-        //         console.log(data);
-        //     }}
-        // )
-
-        cat.remove();
+// 유효성검사
+$("#edit_board_form")[0].addEventListener("submit",function(event){
+    var board_name = $("#name>input")[0].value;
+    if(duplicate_check(board_name,"CMS_board","name_kor") && board_name != "<?echo $name?>"){
+        alert("이미 존재하는 게시판명입니다.");
+        $("#name>input")[0].focus();
+        event.preventDefault();
     }
-
-    function edit_cat(tag){
-        var cat = tag.closest("div#category_list>div");
-        edit_cancel();
-        shift_edit_display(cat,"edit");
-
-        var cat_input = cat.querySelector("div.edit input");
-        cat_input.focus();
-        var tmp = cat_input.value;
-        cat_input.value = "";
-        cat_input.value = tmp;
-    }
-
-    function edit_cancel(){
-        var cat_list = $("#category_list > div").toArray();
-        for(i = 0; i < cat_list.length; i++){
-            shift_edit_display(cat_list[i],"display");
-        }
-    }
-
-    function shift_edit_display(cat,on){
-        var off = "";
-        if(on == "display")
-            off="edit";
-        if(on == "edit")
-            off="display";
-
-        if(on=="display"){
-            cat.querySelector("input.editname").value = cat.querySelector("span.name").innerText;
-        }
-
-        if(cat.querySelector("div."+on+".invisible") != null)
-            cat.querySelector("div."+on+".invisible").classList.remove("invisible");
-        if(cat.querySelector("div."+off) != null)
-            cat.querySelector("div."+off).classList.add("invisible");
-    }
-
-    function edit_done(tag){
-        var cat = tag.closest("div#category_list>div");
-        var new_cat_name = cat.querySelector("input.editname").value;
-        cat.querySelector("span.name").innerText = new_cat_name;
-        cat.querySelector("input.hdn").value = new_cat_name;
-        shift_edit_display(cat,"display");
-    }
-
-    function add_cat(){
-        var new_cat = $("#category input.add_value")[0].value;
-        var new_element = $('<div>\
-            <div class="edit invisible">\
-                <input type="text" class="editname" onkeydown="if(event.keyCode == 13)edit_done(this)" minlength="1" maxlength="7" value="'+new_cat+'">\
-                <div class="btns">\
-                    <input type="button" onclick="edit_done(this)" value="확인">\
-                </div>\
-            </div>\
-            <div class="display">\
-                <span class="name">'+new_cat+'</span>\
-                <div class="btns">\
-                    <a onclick="edit_cat(this)"><img src="/ex_cms/images/icon_edit.png"></a>\
-                    <a onclick="remove_cat(this)"><img src="/ex_cms/images/icon_cancel.png"></a>\
-                </div>\
-                <input type="hidden" class="hdn" name="cat[]" value="'+new_cat+'">\
-            </div>\
-        </div>')[0];
-        var cat_list = $("#category_list")[0];
-        cat_list.appendChild(new_element);
-        $("#category input.add_value")[0].value = "";
-    }
-
-
-    // 엔터쳤을때 submit 방지
-    $(document).on("keypress", 'form', function (e) {
-        var code = e.keyCode || e.which;
-        if (code == 13) {
-            e.preventDefault();
-            return false;
-        }
-    });
+});
 </script>
