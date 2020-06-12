@@ -1,0 +1,685 @@
+/* ===============================================
+공통
+=============================================== */
+input { font-size:12px; }
+
+.spacer {clear: both;}
+
+a { text-decoration: none; color:black;}
+a:hover{cursor:pointer;}
+
+p{ margin:0; }
+
+ul { list-style:none; padding:0;}
+
+body{
+    background-color: #eeeeee;
+}
+
+html, body {
+  width:100%; height: 100%; margin:0; padding:0;
+  display: flex; min-height: 100vh; flex-direction: column;
+}
+
+#main-content {flex:1;}
+
+#logo{
+    font-size:60px;
+    color:#ff7530;
+    letter-spacing:-3px;
+    text-align: center;
+    margin:40px 0px;
+}
+
+.text-stroke {
+    text-shadow:
+    -1px -1px 0 #ffffff,
+    1px -1px 0 #ffffff,
+    -1px 1px 0 #ffffff,
+    1px 1px 0 #ffffff;
+}
+
+.white-shadow-box{
+    background-color: white;
+    box-shadow: 0px 0px 5px 5px #dddddd;
+}
+
+
+div.article-box{
+    overflow: auto; width:100%; height:96px;
+    border: 1px solid #bbbbbb;
+    font-size:12px;
+}
+
+p.article-text{
+    margin: 5px 15px;
+}
+
+.custom-button{
+    font-size:20px;
+    margin:5px 0;
+    padding: 20px 0;
+    border:none;
+    color:white;
+    font-weight:bold;
+    border-radius:3px;
+}
+.custom-button:hover{ cursor:pointer;}
+
+.bg-orange{
+    background-color:#ff7530;
+}
+
+.bg-gray{
+    background-color:#555555;
+}
+
+.long{
+    width:100%;
+}
+
+.short{
+    width:45%;
+}
+
+.basic-text{
+    font-size:15px;
+    color:#555555;
+}
+
+.hidden-data{
+    width:0;
+    height:0;
+    visibility:hidden;
+}
+
+.invisible{
+    display:none;
+}
+
+/* ===============================================
+로그인페이지
+=============================================== */
+input.login-input{
+    font-size: 15px;
+    width:100%;
+    border:none;
+    border-bottom: 2px solid gray;
+    padding: 10px 0;
+    margin-bottom:20px;
+}
+
+a#join{
+    color:#555555;
+    font-size:12px;
+}
+
+#login-box{
+    margin:0 auto;
+    width:300px;
+    padding:80px 100px;
+}
+
+
+/* ===============================================
+회원가입 페이지
+=============================================== */
+ul#join-elements-list{
+    padding:0px;
+    text-align:left;
+}
+
+.padding-bottom{
+    padding-bottom:25px;
+}
+
+#join-container{
+    margin:0 auto;
+    width:360px;
+    padding:50px 70px;
+    text-align:center;
+}
+
+.join-label-box{
+    margin-bottom:5px;
+    margin-top:10px;
+}
+
+.padding-bottom-mini{
+    padding-bottom:5px;
+}
+
+.join-label{
+    font-size:15px;
+    font-weight:bold;
+}
+
+div.join-input-box{
+    width:100%;
+    height:35px;
+    padding: 5px 0;
+    border:1px solid #bbbbbb;
+
+    text-align:center;
+}
+
+.join-input{
+    font-size:15px;
+    border:0px;
+    height:100%;
+
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.width-full{
+    width:95%;
+}
+.width-half{
+    width:50%;
+}
+
+span.required{
+    padding-left:5px;
+    font-size:12px;
+    color:red;
+    font-weight:normal;
+}
+
+span.optional{
+    padding-left:5px;
+    font-size:12px;
+    color:gray;
+    font-weight:normal;
+}
+
+p.join-message{
+    font-size:13px;
+    margin: 5px;
+}
+
+/* ===============================================
+게시판
+=============================================== */
+table.board_list{
+    margin-top:20px;
+    width:100%;
+    border-collapse:collapse;
+}
+
+table.board_list tr{ font-size: 13px; border-bottom:1px solid #bbb; text-align: center;}
+table.board_list tbody tr:hover{ background-color:#ddd;}
+
+table.board_list thead{
+    background-color:#555555;
+    color:white;
+}
+
+table.board_list th {height:36px;}
+table.board_list td {height:28px;}
+
+table.board_list tbody{
+    background-color:none;
+
+}
+
+table.board_list .chkbox{width:40px}
+.board_num{ width:50px;}
+.board_cat{width:80px;}
+tbody .board_cat{font-weight: bold;}
+.board_title{text-align: left; padding:0 10px;}
+.board_title a{color:black}
+.board_title a:hover{text-decoration: underline;}
+.board_title a:visited{color:#555;}
+.board-post-cmt {margin-left:3px; font-size:11px; font-weight:bold;}
+.board_author{width:140px;}
+.board_date{width:80px;}
+.board_views{width:40px;}
+.board_recommends{width:40px;}
+
+
+article#post{
+    font-size:13px;
+}
+#post-title-container{
+    border-top:2px #999 solid;
+    border-bottom:1px #999 solid;
+    background-color:white;
+}
+.post-title-box{
+    margin: 5px 0px;
+    float:left;
+    width:100%;
+}
+
+#post-category{ font-weight: bold; font-size:14px; color:#555; margin-left:15px;}
+#post-title{ font-weight: bold; font-size:14px; margin-left:15px;}
+#post-name{margin-left:15px}
+#post-date{ margin-left:5px; padding-left: 10px; border-left: 1px #999 solid; }
+.post-info-etc {float:right; margin-right:15px;}
+
+#post-content-container{margin-bottom:30px;}
+#post-content{margin:30px 0;}
+
+#post-recommend-box{ text-align:center; }
+.btn-recommend {margin:0; width:70px; height:30px}
+.btn-recommend .up{color:red; font-weight:bold}
+.btn-recommend .down{color:blue; font-weight:bold}
+.btn-recommend:hover{ cursor:pointer;}
+
+.post-bottom-buttons { padding-top:10px; text-align: right;}
+.btn-mini{ font-weight: bold; width:90px; height:40px; color:white; border:none; border-radius: 3px;}
+.btn-mini:hover{ cursor:pointer;}
+
+#password-box { padding:30px 20px; border:3px #555 solid; margin:0 auto; width:300px; text-align: center;}
+#password-box h3{margin:5px;}
+#password-box #pw{ height:35px; box-sizing: border-box; padding:5px}
+#password-box #btn-ok{ width:75px; height:35px; background-color: #ff7530; border:none; border-radius: 3px;
+                        color:white; font-size:14px; font-weight:bold}
+
+
+#page-buttons{ text-align: center;}
+#page-buttons a{font-size:14px; margin: 0 5px;}
+#page-buttons a:hover{text-decoration: underline;}
+#page-buttons a.selected {font-weight:bold;text-decoration: underline;}
+
+
+
+#search-box{
+    margin-top:10px;
+    height:30px;
+}
+#search-box form{height:100%; display:flex; justify-content: center;}
+#search-box select{ box-sizing: border-box; height:100%; margin:0; }
+#search-box input{ box-sizing: border-box; height:100%; margin:0; }
+
+#search-btn { background-color:#ff7530; border:none; color:white; font-weight: bold; width:60px;}
+
+/* ===============================================
+글쓰기
+=============================================== */
+#post-write-box{
+    box-sizing: border-box; padding:15px;
+    border:1px solid #ccc; background-color: #eaeaea;
+    border-radius: 5px;
+}
+.texteditor{width:99%;}
+
+#post-write-box p{display:flex;}
+#post-write-box input{
+    padding: 5px; font-weight: bold; font-size:13px;
+    height: 100%; box-sizing: border-box;
+    margin-right:5px;
+}
+#post-write-box select{
+    padding: 5px; font-weight: bold; font-size:13px; width:10%;
+    height: 100%; box-sizing: border-box;
+    margin-right:5px;
+}
+
+.post-write-title{ margin: 10px 0;}
+.post-write-title input {width:80%;}
+
+
+/* ===============================================
+댓글
+=============================================== */
+
+ul#comment-container { width:100%; margin:0; border-top: 2px #999 solid; }
+
+.cmt{padding:10px 15px; border-bottom:1px #bbb solid;}
+.cmt-name{font-weight:bold; text-align: center}
+.cmt-date{margin-left:10px; font-size:12px; color:#555;}
+.cmt-content{margin:10px 0; word-break:break-all;}
+
+.cmt-btns { float:right; visibility: hidden;}
+.cmt:hover .cmt-btns{visibility: visible;}
+.cmt-btns a{color:#555;}
+.cmt-btns a:hover{text-decoration: underline;  cursor:pointer;}
+
+
+#comment-write-container{ border-top: 2px #999 solid; border-bottom: 2px #999 solid;  width:100%;}
+
+.comment-write-box {padding:10px 0; width:100%; height:100px; border-bottom:1px #999 solid; display:flex; justify-content: center;}
+.comment-write-box div { padding:5px; margin:0; }
+
+.comment-write-head {width:140px; height:100%;}
+.comment-write-head input {padding: 5px; margin-bottom:5px; width:90%;}
+
+.comment-write-textarea{width:660px; height:80px;}
+.comment-write-textarea textarea{width:100%; height:100%;box-sizing: border-box; resize:none;padding:10px; }
+
+.comment-write-btn{height:80px; width:80px}
+.comment-write-btn input{height:100%; width:100%; background-color:#ff7530; border:none; border-radius: 3px; color:white; font-size:14px; font-weight: bold; }
+
+/* ===============================================
+헤더
+=============================================== */
+header#header{
+    width:100%;
+    height:50px;
+    margin:0;
+    background-color:#555555;
+}
+
+span#logo-mini{
+    font-size:30px;
+    letter-spacing:-2px;
+    text-align: center;
+    font-weight: bold;
+    padding-right:30px;
+    float:left;
+    height:100%;
+}
+
+span#logo-mini a{
+    color:#ff7530;
+    margin: 0px; display: block; width: 100%; height: 100%;
+    line-height: 50px;
+}
+
+.screen-width{
+    width:960px;
+    margin:0 auto;
+    height:100%;
+}
+
+ul.nav{
+    height:0px;
+    width:auto;
+    margin:0;
+    padding:0;
+}
+
+ul.nav li{
+    display:inline-block;
+    width:110px;
+    height:50px;
+    line-height: 50px;
+    text-align:center;
+    font-weight:bold;
+    position:relative;
+}
+
+ul.nav > li:hover{
+    background-color: #888888;
+}
+
+ul.nav-sub{
+    display:none;
+    position:absolute;
+    padding:0;
+    box-shadow: 0px 0px 2px 2px #777777;
+}
+
+ul.nav > li:hover ul.nav-sub{
+    display:block;
+}
+
+ul.nav-sub > li{
+    border-top: 1px solid gray;
+    width:110px;
+    height:50px;
+    line-height: 50px;
+    background-color:#555555;
+    position:relative;
+}
+
+ul.nav-sub > li:hover{
+    background-color: #888888;
+}
+
+ul.nav li a{
+    margin: 0px; display: block; width: 100%; height: 100%;
+    color:#eeeeee;
+    text-align:center;
+    font-weight:bold;
+    font-size:14px;
+}
+
+
+
+#nav-userinfo{
+    float:right;
+}
+
+#nav-userinfo .icon{
+    width:20px; height:20px;
+    float:left;
+    margin-right:5px;
+    margin-top:15px;
+}
+
+.nav-btn{
+    float:left;
+    width:70px;
+    height:50px;
+    line-height: 50px;
+    background-color:#555555;
+    text-align:center;
+    color:#eeeeee;
+    font-weight:bold;
+    font-size:13px;
+    border:0;
+    padding:0;
+}
+
+.nav-btn:hover{
+    background-color: #888888;
+    cursor:pointer;
+}
+
+.nav-msg{
+    float:left;
+    height:50px;
+    margin-right:5px;
+    line-height: 50px;
+    text-align:right;
+    color:#eeeeee;
+    font-size:13px;
+    border:0;
+    padding:0;
+}
+
+
+
+
+/* ===============================================
+푸터
+=============================================== */
+footer#footer{
+    height:80px;
+    border-top: 2px solid #ccc;
+    margin-top:60px;
+}
+
+
+/* ===============================================
+메인화면
+=============================================== */
+#board-display-container{
+    padding: 0 80px;
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.board-display{
+    width:100%;
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 10px 30px 10px 30px
+}
+
+.board-display h3{
+    margin-top:5px;
+    margin-bottom:0px;
+    border-bottom:2px solid gray;
+}
+
+.board-display ul{
+    list-style:"⚬ ";
+    padding-left:10px;
+    margin:0px;
+    height:130px;
+}
+
+.board-display li{
+    font-size:13px;
+    margin:5px 0;
+}
+
+.board-display li a:hover{
+    text-decoration: underline;
+}
+
+
+
+/* ===============================================
+탭메뉴
+=============================================== */
+
+ul#tab-menu{
+    box-sizing: border-box;
+    height:40px;
+    border-bottom:1px solid #aaa;
+    margin-bottom:0;
+}
+#tab-menu>li{
+    float:left; margin-right:5px;
+    width:120px; height:40px;
+    background-color: #cfcfcf;
+    border: 1px solid #aaa;
+    border-bottom:1px solid #aaa;
+    box-sizing: border-box;
+}
+#tab-menu>li a{
+    display:block; margin:0px;
+    height:100%; width:100%;
+    font-size:14px;
+    text-align: center;
+    line-height: 40px;
+    color:#333;
+}
+#tab-menu>li.selected{
+    background-color: white;
+    border-bottom:1px solid white;
+}
+#tab-menu>li.selected a{
+    color:black;
+    font-weight:bold;
+}
+
+#tab-body{
+    box-sizing: border-box;
+    border: 1px solid #aaa;
+    border-top:none;
+    background-color: white;
+    padding:10px 30px;
+}
+
+/* ===============================================
+마이페이지
+=============================================== */
+#mypage-info table{
+    margin:30px auto;
+    margin-bottom:5px;
+    border-top:2px solid #aaa;
+    border-bottom:2px solid #aaa;
+    border-collapse: collapse;
+}
+
+#mypage-info tbody td{
+    font-size:14px;
+    height:40px;
+    line-height: 40px;
+    text-align: center;
+    border-bottom: 1px solid #aaa;
+    align-items: center;
+    vertical-align: middle;
+}
+
+#mypage-info td.label{
+    font-weight:bold;
+    width:200px;
+}
+
+#mypage-info td.value{
+    width:300px;
+}
+
+#mypage-info td.button{
+    width:100px;
+}
+
+#mypage-info form{
+
+}
+
+#mypage-info form input{
+    height:30px;
+    box-sizing: border-box;
+    margin:0;
+}
+#mypage-info form input.text{
+    font-size:14px;
+    padding-left:5px
+}
+#modify-nickname input.text{
+    width:130px;
+}
+#modify-email input.text{
+    width:200px;
+}
+
+#mypage-info #buttons{
+    text-align: right;
+    margin-bottom:30px;
+}
+
+
+/* ===============================================
+게시판관리
+=============================================== */
+#admin-boards {padding:30px 50px; display:flex}
+
+#board-order-box{
+    display:inline-block;
+    width:200px; box-sizing: border-box;
+}
+#board-order-box #board-list {border:1px solid #bbb; margin:10px 0;}
+#board-order-box #board-list ul {margin:0;}
+#board-order-box #board-list li{ font-size:14px; box-sizing: border-box;}
+#board-order-box #board-list .board{padding-left:20px}
+#board-order-box #board-list a {user-select: none; width:100%; height:100%; display:block; padding:5px 0; box-sizing: border-box;}
+
+#board-order-box .order-change-btn {text-align: center;}
+#board-order-box .order-change-btn input {width:90px;}
+a.on {background-color: #ddd;}
+
+#board-info{font-size:14px; width:calc(100% - 250px); display:inline-block;}
+#board-info table{
+    box-sizing: border-box;
+    width:100%;
+    border-collapse: collapse;
+    border-top:2px solid #555;
+    border-bottom:2px solid #555;
+}
+#board-info tr{height:40px}
+#board-info td.label{width:100px; padding-left:10px; font-weight: bold;}
+#board-info div.buttons {text-align:center; padding-top:10px;}
+#board-info div.buttons input { width:100px;}
+
+#group-info{font-size:14px; width:calc(100% - 250px); display:inline-block;}
+#group-info table{
+    box-sizing: border-box;
+    width:100%;
+    border-collapse: collapse;
+    border-top:2px solid #555;
+    border-bottom:2px solid #555;
+}
+#group-info tr{height:40px}
+#group-info td.label{width:100px; padding-left:10px; font-weight: bold;}
+#group-info div.buttons {text-align:center; padding-top:10px;}
+#group-info div.buttons input { width:150px;}
+
+#group-info #modify-groupname-box input{height:30px; box-sizing: border-box; font-size:13px;}
