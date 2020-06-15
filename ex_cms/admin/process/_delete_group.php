@@ -16,7 +16,7 @@
         invalid_access("게시판이 존재하는 게시판그룹은 삭제할 수 없습니다.");
     }
 
-    $sql="DELETE FROM CMS_board_group WHERE group_id=".$id;
+    $sql="DELETE FROM CMS_board_group WHERE id=".$id;
     sql_query($sql);
     invalid_access("게시판그룹이 삭제되었습니다.", "/ex_cms/admin/?tab=boards");
  ?>

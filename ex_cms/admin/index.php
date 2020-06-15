@@ -37,6 +37,7 @@
                 <li <?tab_selected("members")?>><a href="http://uraman.m-hosting.kr/ex_cms/admin/?tab=members">회원 관리</a></li>
                 <li <?tab_selected("ban_members")?>><a href="http://uraman.m-hosting.kr/ex_cms/admin/?tab=ban_members">정지/탈퇴 회원</a></li>
                 <li <?tab_selected("boards")?>><a href="http://uraman.m-hosting.kr/ex_cms/admin/?tab=boards">게시판 관리</a></li>
+                <li <?tab_selected("main")?>><a href="http://uraman.m-hosting.kr/ex_cms/admin/?tab=main">메인화면 관리</a></li>
             </ul>
             <div id="tab-body">
                 <?include $_SERVER["DOCUMENT_ROOT"]."/ex_cms/admin/_".$_GET["tab"].".php";?>

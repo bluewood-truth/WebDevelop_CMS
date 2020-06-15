@@ -36,9 +36,6 @@
     $sql = "INSERT INTO CMS_board
         (id,name_kor,group_id,order_sub,access,category_list)
         VALUES ('".$bid."', '".$name."', '".$group."', ".$order_sub.", '".$access."', ".$new_list.")";
-    echo $sql;
-    exit;
-
     sql_query($sql);
 
     $sql = "CREATE TABLE CMS_post_".$bid." (

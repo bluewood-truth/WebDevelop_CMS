@@ -31,5 +31,4 @@
     }
 
     header("location:/ex_cms/admin/?tab=boards");
-    // invalid_access("변경이 완료되었습니다.", "/ex_cms/admin/?tab=boards");
  ?>
