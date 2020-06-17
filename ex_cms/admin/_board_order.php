@@ -41,7 +41,7 @@
     </div>
 </div>
 <div id="buttons">
-    <input style="font-size:13.333px" type="submit" class="btn-mini bg-gray" name="submit_button" value="저장하기">
+    <input style="font-size:13.333px" type="submit" class="btn-mini bg-orange" name="submit_button" value="저장하기">
 </div>
 <input type="hidden" name="type" value="post">
 </form>

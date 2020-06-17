@@ -33,7 +33,7 @@
         }
     }
     $sql = "UPDATE CMS_board SET name_kor='".$name."', group_id='".$group."', order_sub='".$order_sub."', category_list=".$new_list." WHERE id='".$bid."'";
-    
+
     sql_query($sql);
-    invalid_access("수정되었습니다.", "/ex_cms/admin/?tab=boards");
+    header("location:/ex_cms/admin/?tab=boards");
 ?>

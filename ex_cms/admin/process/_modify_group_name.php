@@ -14,5 +14,5 @@
     $sql = "UPDATE CMS_board_group SET name_kor='".$name."' WHERE id=".$id;
     sql_query($sql);
 
-    invalid_access("게시판그룹명이 수정되었습니다.", "/ex_cms/admin/?tab=boards");
+    header("location:/ex_cms/admin/?tab=boards");
  ?>

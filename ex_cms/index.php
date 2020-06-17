@@ -2,7 +2,7 @@
     include_once $_SERVER["DOCUMENT_ROOT"]."/ex_cms/common/common.php";
     sql_connect();
 
-    $sql = "SELECT * FROM CMS_board WHERE display_on_main > 0 ORDER BY display_on_main";
+    $sql = "SELECT * FROM CMS_board WHERE display_on_main IS NOT NULL ORDER BY display_on_main";
     $result = sql_query($sql);
  ?>
 
